@@ -1,0 +1,62 @@
+#macro( treeTable $node )
+
+<tr id="node-$node.hashCode()" #if ($node.parent) class="child-of-node-$node.parent.hashCode()" #end>
+
+    <td class="tree">
+        <span class="mdt #if($node.packaging.endsWith("plugin")) mdt-packaging-plugin #elseif($node.packaging == 'pom' || $node.packaging == 'jar' || $node.packaging == 'war' || $node.packaging == 'ear' || $node.packaging == 'bundle') mdt-packaging-$node.packaging #else mdt-packaging-other #end #if ($node.omitted) mdt-omitted #end">
+            <span class="mdt-group">$node.groupId</span>
+            <span class="mdt-separator">:</span>
+            <span class="mdt-artifact">$node.artifactId</span>
+        </span>    
+    </td>
+    
+    <td>
+        <span class="mdt #if ($node.omitted) mdt-omitted #end">
+            <span class="mdt-version #if ($node.version && $node.version.endsWith("SNAPSHOT")) mdt-snapshot #end">$node.version</span>
+        </span>
+    </td>
+        
+    <td>
+        <span class="mdt #if ($node.omitted) mdt-omitted #end">
+            <span class="mdt-packaging">$node.packaging</span>
+        </span>
+    </td>
+    
+    <td>
+        <span class="mdt #if ($node.omitted) mdt-omitted #end">
+        #if ($node.scope)
+            <span class="mdt-scope mdt-scope-$node.scope">$node.scope</span>
+        #else
+            &nbsp;
+        #end
+        </span>
+    </td>
+     
+    <td>
+        <span class="mdt #if ($node.omitted) mdt-omitted #end">
+        #if ($node.classifier)
+            <span class="mdt-classifier">$node.classifier</span>
+        #else
+            &nbsp;
+        #end
+        </span>
+    </td>    
+           
+    <td>
+        <span class="mdt #if ($node.omitted) mdt-omitted #end">
+        #if ($node.description)
+            <span class="mdt-description">($node.description)</span>
+        #else
+            &nbsp;
+        #end
+    </td>
+    
+</tr>
+
+#if($node.childNodes)
+#foreach($childNode in $node.childNodes)
+#treeTable ($childNode)
+#end
+#end
+
+#end

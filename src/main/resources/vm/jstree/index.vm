@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Maven Dependency Tree</title>
+
+<link rel="stylesheet" type="text/css" href="css/jstree/maven-dependency-tree.css" />
+
+<script type="text/javascript" src="js/common/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/common/jquery-ui-1.8.4.custom.min.js"></script>
+<script type="text/javascript" src="js/jstree/jquery.jstree.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function()  {
+  $("#tree_$tree.hashCode()").jstree({ 
+        "plugins" : ["themes","html_data","ui","types"],
+        "types" : {
+            "types" : {
+            #foreach($entry in $imagesMap.entrySet())
+                "$entry.key" : {
+                    "icon" : { 
+                        "image" : "$entry.value" 
+                    }
+                }#if( $velocityHasNext ),#end
+            #end
+            }
+        }
+    });
+    
+    $("#tree_$tree.hashCode()").delegate("a","click", function(e) {
+      $("#tree_$tree.hashCode()").jstree("toggle_node", this);
+    }); 
+
+});
+</script>
+
+</head>
+<body>
+
+<div id="tree_$tree.hashCode()">
+<ul class="tree">
+#jstree($tree)
+</ul>
+</div>
+
+</body>
+</html>

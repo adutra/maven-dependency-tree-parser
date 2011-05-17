@@ -1,0 +1,65 @@
+
+.mdt {
+    font-weight:bold;
+}
+.mdt-separator {
+    
+}
+.mdt-omitted {
+    font-style:italic;
+}
+.mdt-group {
+    color:darkorange;
+    padding-left:18px;
+}
+.mdt-artifact {
+    color:darkgreen;
+}
+.mdt-packaging {
+    
+}
+.mdt-packaging-jar {
+    background: url(../../img/common/jar.gif) no-repeat
+}
+.mdt-packaging-war {
+    background: url(../../img/common/war.gif) no-repeat
+}
+.mdt-packaging-ear {
+    background: url(../../img/common/ear.gif) no-repeat
+}
+.mdt-packaging-pom {
+    background: url(../../img/common/pom.gif) no-repeat
+}
+.mdt-packaging-plugin {
+    background: url(../../img/common/plugin.gif) no-repeat
+}
+.mdt-packaging-bundle {
+    background: url(../../img/common/bundle.gif) no-repeat
+}
+.mdt-packaging-other {
+    background: url(../../img/common/other.gif) no-repeat
+}
+.mdt-version {
+    color:darkblue;
+}
+.mdt-snapshot {
+    color: red;
+    /*text-decoration: blink; */
+}
+.mdt-scope {
+}
+.mdt-scope-compile {
+    color:brown;
+}
+.mdt-scope-test {
+    color:violet;
+}
+.mdt-scope-runtime {
+    color:red;
+}
+.mdt-scope-provided {
+    color:fuchsia;
+}
+.mdt-description {
+    font-weight:normal;
+}

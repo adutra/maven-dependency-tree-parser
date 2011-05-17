@@ -1,0 +1,324 @@
+245656195 com.acme.org:foo-integration:jar:1.0.41-SNAPSHOT
+1770590530 com.acme.org:commons-integration:jar:2.39.0:compile
+96632433 (com.acme.org:commons-core:jar:2.39.0:compile - omitted for duplicate)
+-1465452329 commons-beanutils:commons-beanutils:jar:1.7.0:compile
+829660963 (commons-logging:commons-logging:jar:1.0.3:compile - omitted for conflict with 1.1)
+486233588 c3p0:c3p0:jar:0.9.1:compile
+208806417 (org.springframework:spring:jar:2.5.6:compile - omitted for duplicate)
+553082584 javax.persistence:persistence-api:jar:1.0:compile
+-131875855 (org.springframework.batch:spring-batch-core:jar:2.0.0.RELEASE:compile - omitted for duplicate)
+555243731 org.springframework:spring-tx:jar:2.5.5:compile
+-111584207 (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.1)
+1160741605 (org.springframework:spring-beans:jar:2.5.5:compile - omitted for conflict with 2.5.6)
+1730484325 (org.springframework:spring-context:jar:2.5.5:compile - omitted for conflict with 2.5.6)
+1983751781 (org.springframework:spring-core:jar:2.5.5:compile - omitted for conflict with 2.5.6)
+1855446553 active project artifact:
+	artifact = com.acme.org:foo-core-impl:jar:1.0.41-SNAPSHOT:compile;
+	project: MavenProject: com.acme.org:foo-core-impl:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core-impl/pom.xml
+-1608623832 active project artifact:
+	artifact = com.acme.org:foo-core:jar:1.0.41-SNAPSHOT:compile;
+	project: MavenProject: com.acme.org:foo-core:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core/pom.xml
+1323343424 (com.acme.org:commons-core:jar:2.39.0:compile - omitted for duplicate)
+236724285 (com.acme.org:commons-core:jar:2.39.0:compile - omitted for duplicate)
+348898269 (org.springframework:spring:jar:2.5.6:compile - omitted for duplicate)
+-84052451 (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+-1882384739 (commons-collections:commons-collections:jar:3.2:compile - omitted for duplicate)
+176005512 com.acme.org:referentials-client:jar:2.11.11:compile
+-148777986 com.acme.org:referentials-core:jar:2.11.10:compile
+-275010551 (com.acme.org:commons-client:jar:2.40.1:compile - omitted for duplicate)
+997132553 (commons-collections:commons-collections:jar:3.2:compile - omitted for duplicate)
+-2039006188 (com.acme.org:commons-client:jar:2.40.1:compile - omitted for conflict with 2.39.0)
+-320389840 com.acme.org:commons-core:jar:2.39.0:compile
+-1858268772 commons-dbutils:commons-dbutils:jar:1.2:compile
+-273919349 oro:oro:jar:2.0.8:compile
+-2084889630 javax.xml.bind:jaxb-api:jar:2.1:compile (version managed from 2.0)
+-154465966 javax.xml.stream:stax-api:jar:1.0-2:compile
+1771924554 javax.activation:activation:jar:1.1:compile
+1665707394 com.sun.xml.bind:jaxb-impl:jar:2.0.3:compile (version managed from 2.1.3)
+-977913876 (javax.xml.bind:jaxb-api:jar:2.1:compile - version managed from 2.0; omitted for duplicate)
+-76394677 javax.xml.bind:jsr173_api:jar:1.0:compile
+1392240640 (javax.activation:activation:jar:1.1:compile - omitted for duplicate)
+-1062498128 (org.springframework:spring:jar:2.5.6:compile - omitted for duplicate)
+-1923283920 (commons-codec:commons-codec:jar:1.4:compile - omitted for duplicate)
+-1510548117 org.springmodules:spring-modules-cache:jar:0.8:compile
+1561685169 cglib:cglib-nodep:jar:2.1_3:compile
+1114732054 commons-dbcp:commons-dbcp:jar:1.2.2:compile
+-241991988 commons-pool:commons-pool:jar:1.3:compile
+626640426 net.sf.ehcache:ehcache:jar:1.2.4:compile
+2033077874 (commons-logging:commons-logging:jar:1.0.4:compile - omitted for conflict with 1.1.1)
+1001186160 (commons-collections:commons-collections:jar:3.2:compile - omitted for duplicate)
+-146678726 commons-cli:commons-cli:jar:1.0:compile
+585568294 (commons-logging:commons-logging:jar:1.0:compile - omitted for conflict with 1.1.1)
+1782022832 (commons-lang:commons-lang:jar:1.0:compile - omitted for conflict with 2.5)
+1950715920 (commons-beanutils:commons-beanutils:jar:1.7.0:compile - omitted for duplicate)
+522370032 (commons-lang:commons-lang:jar:2.5:compile - omitted for duplicate)
+-394744357 (c3p0:c3p0:jar:0.9.1.2:compile - omitted for conflict with 0.9.1)
+-1524218350 commons-httpclient:commons-httpclient:jar:3.0.1:compile
+-592794396 (junit:junit:jar:4.4:compile - version managed from 3.8.1; omitted for duplicate)
+-1495658850 (commons-logging:commons-logging:jar:1.0.3:compile - omitted for conflict with 1.1.1)
+-1078699795 (commons-codec:commons-codec:jar:1.2:compile - omitted for conflict with 1.4)
+2083126995 log4j:log4j:jar:1.2.15:compile
+-399731560 javax.mail:mail:jar:1.4:compile
+-811501729 (javax.activation:activation:jar:1.1:compile - omitted for duplicate)
+1692699452 javax.jms:jms:jar:1.1:compile
+1665913707 com.sun.jdmk:jmxtools:jar:1.2.1:compile
+1999786862 com.sun.jmx:jmxri:jar:1.2.1:compile
+37972669 xerces:xercesImpl:jar:2.8.1:compile
+64399193 xml-apis:xml-apis:jar:1.0.b2:compile
+670152542 (commons-logging:commons-logging:jar:1.1:compile - omitted for conflict with 1.1.1)
+182273632 commons-logging:commons-logging-api:jar:1.1:compile
+169899964 com.itextpdf:itextpdf:jar:5.0.5:compile
+146744702 org.bouncycastle:bcmail-jdk14:jar:1.38:compile
+-1295173919 (org.bouncycastle:bcprov-jdk14:jar:1.38:compile - omitted for duplicate)
+656009749 org.bouncycastle:bcprov-jdk14:jar:1.38:compile
+-848438393 org.bouncycastle:bctsp-jdk14:jar:1.38:compile
+795507785 (org.bouncycastle:bcprov-jdk14:jar:1.38:compile - omitted for duplicate)
+179733001 (org.bouncycastle:bcmail-jdk14:jar:1.38:compile - omitted for duplicate)
+-1276633216 org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+1690638244 (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+-772041820 org.slf4j:slf4j-api:jar:1.5.6:compile
+94211049 commons-logging:commons-logging:jar:1.1.1:compile
+1786350529 commons-lang:commons-lang:jar:2.5:compile
+-639084889 commons-codec:commons-codec:jar:1.4:compile
+935146293 commons-collections:commons-collections:jar:3.2:compile
+-374016248 org.springframework:spring:jar:2.5.6:compile
+-2118950441 (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+2137189699 org.springframework.batch:spring-batch-core:jar:2.0.0.RELEASE:compile
+-135706476 (org.springframework.batch:spring-batch-infrastructure:jar:2.0.0.RELEASE:compile - omitted for duplicate)
+-1216251033 (commons-lang:commons-lang:jar:2.1:compile - omitted for conflict with 2.5)
+671688363 org.aspectj:aspectjrt:jar:1.5.4:compile
+1004903221 org.aspectj:aspectjweaver:jar:1.5.4:compile
+-303867498 com.thoughtworks.xstream:xstream:jar:1.3:compile
+1408157009 xpp3:xpp3_min:jar:1.1.4c:compile
+886683094 org.codehaus.jettison:jettison:jar:1.0:compile
+1404121179 org.springframework:spring-aop:jar:2.5.6:compile
+-630726510 aopalliance:aopalliance:jar:1.0:compile
+-982920138 (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+-1778328394 (org.springframework:spring-beans:jar:2.5.6:compile - omitted for duplicate)
+-955318218 (org.springframework:spring-core:jar:2.5.6:compile - omitted for duplicate)
+1924957402 org.springframework:spring-beans:jar:2.5.6:compile
+1567551801 (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+1595153721 (org.springframework:spring-core:jar:2.5.6:compile - omitted for duplicate)
+50040382 org.springframework:spring-context:jar:2.5.6:compile
+-1643061827 (aopalliance:aopalliance:jar:1.0:compile - omitted for duplicate)
+-765836547 (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+-1561244803 (org.springframework:spring-beans:jar:2.5.6:compile - omitted for duplicate)
+-738234627 (org.springframework:spring-core:jar:2.5.6:compile - omitted for duplicate)
+-29318279 org.springframework:spring-core:jar:2.5.6:compile
+-1981535411 (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+-2046490738 (org.springframework:spring-tx:jar:2.5.6:compile - omitted for conflict with 2.5.5)
+1552375562 stax:stax:jar:1.2.0:compile
+-1659189414 org.springframework.batch:spring-batch-infrastructure:jar:2.0.0.RELEASE:compile
+-953806272 (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+-926204352 (org.springframework:spring-core:jar:2.5.6:compile - omitted for duplicate)
+206745792 (stax:stax:jar:1.2.0:compile - omitted for duplicate)
+-443141030 javax.validation:validation-api:jar:1.0.0.GA:compile
+530236431 com.acme.org:commons-client:jar:2.39.0:runtime (scope not updated to compile)
+458446393 (com.acme.org:commons-core:jar:2.39.0:runtime - omitted for duplicate)
+1573094645 javax.transaction:jta:jar:1.0.1B:runtime
+-1267627167 org.apache.activemq:activemq-core:jar:5.1.0:runtime
+-735979563 (commons-logging:commons-logging-api:jar:1.1:runtime - omitted for duplicate)
+-1213711727 org.apache.camel:camel-core:jar:1.3.0:runtime
+496282529 (commons-logging:commons-logging-api:jar:1.0.4:runtime - omitted for conflict with 1.1)
+1029195367 (javax.xml.bind:jaxb-api:jar:2.1:runtime - version managed from 2.0; omitted for duplicate)
+-1813378495 (com.sun.xml.bind:jaxb-impl:jar:2.0.3:runtime - version managed from 2.1.3; omitted for duplicate)
+-90670527 org.apache.geronimo.specs:geronimo-jms_1.1_spec:jar:1.1.1:runtime
+420677072 org.apache.geronimo.specs:geronimo-j2ee-management_1.0_spec:jar:1.0:runtime
+-1538201306 org.apache.activemq:activeio-core:jar:3.1.0:runtime
+1625454023 (commons-logging:commons-logging:jar:1.1:runtime - omitted for conflict with 1.1.1)
+-2043198797 backport-util-concurrent:backport-util-concurrent:jar:2.1:runtime
+-1437430659 com.ibm:mqjms:jar:6.0.0:runtime
+500716325 com.ibm:mq:jar:6.0.0:runtime
+-101608160 com.ibm:connector:jar:6.0.0:runtime
+-2090649282 com.ibm:jta:jar:6.0.0:runtime
+-1824729296 com.ibm:dhbcore:jar:6.0.0:runtime
+-276019940 com.oracle:ojdbc5:jar:11.2.0.1.0:runtime
+-1267778480 org.slf4j:slf4j-log4j12:jar:1.5.6:runtime
+1950391419 (org.slf4j:slf4j-api:jar:1.5.6:runtime - omitted for duplicate)
+348618658 com.acme.org:commons-test:jar:2.26.8:test
+-1637553879 httpunit:httpunit:jar:1.7:test
+1561620128 javax.servlet:servlet-api:jar:2.3:test
+1058114544 jtidy:jtidy:jar:4aug2000r7-dev:test
+1854100074 (org.springframework:spring:jar:2.5.6:test - omitted for duplicate)
+-239511267 org.springframework:spring-test:jar:2.5.6:test
+-1849178619 (commons-logging:commons-logging:jar:1.1.1:test - omitted for duplicate)
+-1010484571 (junit:junit:jar:4.4:test - version managed from 3.8.1; omitted for duplicate)
+1160395133 org.mortbay.jetty:jetty:jar:6.1.24:test
+-1881556493 org.mortbay.jetty:jetty-util:jar:6.1.24:test
+-1802217694 org.mortbay.jetty:servlet-api:jar:2.5-20081211:test
+-1208364679 (xml-apis:xml-apis:jar:1.0.b2:compile - scope updated from test; omitted for duplicate)
+1526443860 jdom:jdom:jar:1.0:test
+-4642006 (xerces:xercesImpl:jar:2.8.1:test - omitted for duplicate)
+-1179814383 (javax.xml.bind:jaxb-api:jar:2.1:test - version managed from 2.2.1; omitted for duplicate)
+408801969 (com.sun.xml.bind:jaxb-impl:jar:2.0.3:test - version managed from 2.2.1; omitted for duplicate)
+894159434 (commons-httpclient:commons-httpclient:jar:3.0.1:test - omitted for duplicate)
+676908471 org.mockito:mockito-all:jar:1.8.5:test
+1686467964 org.powermock:powermock-api-mockito:jar:1.4.7:test
+1302559633 (org.mockito:mockito-all:jar:1.8.5:test - omitted for duplicate)
+1908053952 org.powermock:powermock-api-support:jar:1.4.7:test
+-607388645 org.powermock:powermock-core:jar:1.4.7:test
+1174651693 (org.powermock:powermock-reflect:jar:1.4.7:test - omitted for duplicate)
+-1801644707 org.javassist:javassist:jar:3.14.0-GA:test
+-2065718132 org.powermock:powermock-reflect:jar:1.4.7:test
+1649502653 org.objenesis:objenesis:jar:1.2:test
+645325908 junit:junit:jar:4.4:test (scope not updated to compile)
+#
+1770590530 96632433 compile
+-1465452329 829660963 compile
+1770590530 -1465452329 compile
+1770590530 486233588 compile
+1770590530 208806417 compile
+1770590530 553082584 compile
+1770590530 -131875855 compile
+555243731 -111584207 compile
+555243731 1160741605 compile
+555243731 1730484325 compile
+555243731 1983751781 compile
+1770590530 555243731 compile
+245656195 1770590530 compile
+-1608623832 1323343424 compile
+1855446553 -1608623832 compile
+1855446553 236724285 compile
+1855446553 348898269 compile
+1855446553 -84052451 compile
+1855446553 -1882384739 compile
+-148777986 -275010551 compile
+-148777986 997132553 compile
+176005512 -148777986 compile
+176005512 -2039006188 compile
+1855446553 176005512 compile
+245656195 1855446553 compile
+-320389840 -1858268772 compile
+-320389840 -273919349 compile
+-2084889630 -154465966 compile
+-2084889630 1771924554 compile
+-320389840 -2084889630 compile
+1665707394 -977913876 compile
+1665707394 -76394677 compile
+1665707394 1392240640 compile
+-320389840 1665707394 compile
+-320389840 -1062498128 compile
+-320389840 -1923283920 compile
+-320389840 -1510548117 compile
+-320389840 1561685169 compile
+1114732054 -241991988 compile
+-320389840 1114732054 compile
+626640426 2033077874 compile
+-320389840 626640426 compile
+-320389840 1001186160 compile
+-146678726 585568294 compile
+-146678726 1782022832 compile
+-320389840 -146678726 compile
+-320389840 1950715920 compile
+-320389840 522370032 compile
+-320389840 -394744357 compile
+-1524218350 -592794396 compile
+-1524218350 -1495658850 compile
+-1524218350 -1078699795 compile
+-320389840 -1524218350 compile
+-399731560 -811501729 compile
+2083126995 -399731560 compile
+2083126995 1692699452 compile
+2083126995 1665913707 compile
+2083126995 1999786862 compile
+-320389840 2083126995 compile
+37972669 64399193 compile
+-320389840 37972669 compile
+-320389840 670152542 compile
+-320389840 182273632 compile
+146744702 -1295173919 compile
+169899964 146744702 compile
+169899964 656009749 compile
+-848438393 795507785 compile
+-848438393 179733001 compile
+169899964 -848438393 compile
+-320389840 169899964 compile
+245656195 -320389840 compile
+-1276633216 1690638244 compile
+-1276633216 -772041820 compile
+245656195 -1276633216 compile
+245656195 94211049 compile
+245656195 1786350529 compile
+245656195 -639084889 compile
+245656195 935146293 compile
+-374016248 -2118950441 compile
+245656195 -374016248 compile
+2137189699 -135706476 compile
+2137189699 -1216251033 compile
+2137189699 671688363 compile
+2137189699 1004903221 compile
+-303867498 1408157009 compile
+2137189699 -303867498 compile
+2137189699 886683094 compile
+1404121179 -630726510 compile
+1404121179 -982920138 compile
+1404121179 -1778328394 compile
+1404121179 -955318218 compile
+2137189699 1404121179 compile
+1924957402 1567551801 compile
+1924957402 1595153721 compile
+2137189699 1924957402 compile
+50040382 -1643061827 compile
+50040382 -765836547 compile
+50040382 -1561244803 compile
+50040382 -738234627 compile
+2137189699 50040382 compile
+-29318279 -1981535411 compile
+2137189699 -29318279 compile
+2137189699 -2046490738 compile
+2137189699 1552375562 compile
+245656195 2137189699 compile
+-1659189414 -953806272 compile
+-1659189414 -926204352 compile
+-1659189414 206745792 compile
+245656195 -1659189414 compile
+245656195 -443141030 compile
+530236431 458446393 runtime
+530236431 1573094645 runtime
+-1267627167 -735979563 runtime
+-1213711727 496282529 runtime
+-1213711727 1029195367 runtime
+-1213711727 -1813378495 runtime
+-1267627167 -1213711727 runtime
+-1267627167 -90670527 runtime
+-1267627167 420677072 runtime
+530236431 -1267627167 runtime
+-1538201306 1625454023 runtime
+-1538201306 -2043198797 runtime
+530236431 -1538201306 runtime
+530236431 -1437430659 runtime
+530236431 500716325 runtime
+530236431 -101608160 runtime
+530236431 -2090649282 runtime
+530236431 -1824729296 runtime
+245656195 530236431 runtime
+245656195 -276019940 runtime
+-1267778480 1950391419 runtime
+245656195 -1267778480 runtime
+-1637553879 1561620128 test
+-1637553879 1058114544 test
+348618658 -1637553879 test
+348618658 1854100074 test
+-239511267 -1849178619 test
+-239511267 -1010484571 test
+348618658 -239511267 test
+1160395133 -1881556493 test
+1160395133 -1802217694 test
+348618658 1160395133 test
+348618658 -1208364679 compile
+348618658 1526443860 test
+348618658 -4642006 test
+348618658 -1179814383 test
+348618658 408801969 test
+348618658 894159434 test
+245656195 348618658 test
+245656195 676908471 test
+1686467964 1302559633 test
+-607388645 1174651693 test
+-607388645 -1801644707 test
+1908053952 -607388645 test
+-2065718132 1649502653 test
+1908053952 -2065718132 test
+1686467964 1908053952 test
+245656195 1686467964 test
+245656195 645325908 test

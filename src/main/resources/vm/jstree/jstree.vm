@@ -1,0 +1,34 @@
+#macro( jstree $node )
+<li rel="#if($node.packaging.endsWith("plugin"))plugin#else$node.packaging#end">
+    <a href="#">
+    <span class="mdt #if ($node.omitted) mdt-omitted #end">
+        <span class="mdt-group">$node.groupId</span>
+        <span class="mdt-separator">:</span>
+        <span class="mdt-artifact">$node.artifactId</span>
+        <span class="mdt-separator">:</span>
+        <span class="mdt-packaging">$node.packaging</span>
+        #if ($node.classifier)
+            <span class="mdt-separator">:</span>
+            <span class="mdt-classifier">$node.classifier</span>
+        #end
+        <span class="mdt-separator">:</span>
+        <span class="mdt-version #if ($node.version && $node.version.endsWith("SNAPSHOT")) mdt-snapshot #end">$node.version</span>
+        #if ($node.scope)
+            <span class="mdt-separator">:</span>
+            <span class="mdt-scope mdt-scope-$node.scope">$node.scope</span>
+        #end
+        #if ($node.description)
+            <span class="mdt-separator">&nbsp;</span>
+            <span class="mdt-description">($node.description)</span>
+        #end
+    </span>    
+    </a>
+    #if($node.childNodes)
+    <ul>
+        #foreach($childNode in $node.childNodes)
+        #jstree ($childNode)
+        #end
+    </ul>
+    #end
+</li>
+#end

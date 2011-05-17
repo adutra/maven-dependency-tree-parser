@@ -1,0 +1,48 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: .8em;
+  line-height: 1.5;
+}
+
+/* TABLE
+ * ========================================================================= */
+table {
+  border: 1px solid #888;
+  border-collapse: collapse;
+  line-height: 1;
+  margin: 1em auto;
+  width: 90%;
+}
+
+/* Caption
+ * ------------------------------------------------------------------------- */
+table caption {
+  font-size: .9em;
+  font-weight: bold;
+  padding: .3em;
+}
+
+/* Header
+ * ------------------------------------------------------------------------- */
+table thead {
+  background: #aaa;
+  font-size: .9em;
+}
+
+table thead tr th {
+  border: 1px solid #888;
+  font-weight: normal;
+  padding: .3em;
+  text-align: left;
+}
+
+/* Body
+ * ------------------------------------------------------------------------- */
+table tbody tr td {
+  cursor: default;
+  padding: .3em;
+}
+
+table tbody tr td.tree {
+  padding: .3em 1.5em;
+}

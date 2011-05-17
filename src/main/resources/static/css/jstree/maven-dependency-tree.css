@@ -1,0 +1,43 @@
+
+.mdt {
+    font-weight:bold;
+}
+.mdt-separator {
+    padding: 0 5px;
+}
+.mdt-omitted {
+    font-style:italic;
+}
+.mdt-group {
+    color:darkorange;
+}
+.mdt-artifact {
+    color:darkgreen;
+}
+.mdt-packaging {
+    
+}
+.mdt-version {
+    color:darkblue;
+}
+.mdt-snapshot {
+    color: red;
+    /*text-decoration: blink; */
+}
+.mdt-scope {
+}
+.mdt-scope-compile {
+    color:brown;
+}
+.mdt-scope-test {
+    color:violet;
+}
+.mdt-scope-runtime {
+    color:red;
+}
+.mdt-scope-provided {
+    color:fuchsia;
+}
+.mdt-description {
+    font-weight:normal;
+}

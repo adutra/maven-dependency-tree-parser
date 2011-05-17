@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//Dth XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/Dth/xhtml1-transitional.dth">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Maven Dependency Tree</title>
+
+<link rel="stylesheet" type="text/css" href="css/treeTable/main.css" /> 
+<link rel="stylesheet" type="text/css" href="css/treeTable/maven-dependency-tree.css" />
+<link rel="stylesheet" type="text/css" href="css/treeTable/jquery.treeTable.css"  />
+
+<script type="text/javascript" src="js/common/jquery-1.4.2.min.js"></script>
+<script type="text/javascript" src="js/common/jquery-ui-1.8.4.custom.min.js"></script>
+<script type="text/javascript" src="js/treeTable/jquery.treeTable.min.js"></script>
+<script type="text/javascript">
+  
+$(document).ready(function()  {
+
+    $("#tree_$tree.hashCode()").treeTable();
+  
+    // Make visible that a row is clicked
+    $("table#tree_$tree.hashCode() tbody tr").mousedown(function() {
+      $("tr.selected").removeClass("selected"); // Deselect currently selected rows
+      $(this).addClass("selected");
+    });
+    
+    // Make sure row is selected when span is clicked
+    $("table#tree_$tree.hashCode() tbody tr span").mousedown(function() {
+      $($(this).parents("tr")[0]).trigger("mousedown");
+    });
+
+});
+  
+</script>
+
+</head>
+<body>
+
+<table id="tree_$tree.hashCode()" class="treeTable">
+<caption>Maven Dependency Tree</caption> 
+<thead>
+<tr>
+    <th>Artifact</th>
+    <th>Version</th>
+    <th>Packaging</th>
+    <th>Scope</th>
+    <th>Classifier</th>    
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+  #treeTable($tree)
+</tbody>
+</table>
+
+</body>
+</html>

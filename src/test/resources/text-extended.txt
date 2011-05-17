@@ -1,0 +1,164 @@
+com.acme.org:foo-integration:jar:1.0.41-SNAPSHOT
+ÃÄ com.acme.org:commons-integration:jar:2.39.0:compile
+³  ÃÄ (com.acme.org:commons-core:jar:2.39.0:compile - omitted for duplicate)
+³  ÃÄ commons-beanutils:commons-beanutils:jar:1.7.0:compile
+³  ³  ÀÄ (commons-logging:commons-logging:jar:1.0.3:compile - omitted for conflict with 1.1)
+³  ÃÄ c3p0:c3p0:jar:0.9.1:compile
+³  ÃÄ (org.springframework:spring:jar:2.5.6:compile - omitted for duplicate)
+³  ÃÄ javax.persistence:persistence-api:jar:1.0:compile
+³  ÃÄ (org.springframework.batch:spring-batch-core:jar:2.0.0.RELEASE:compile - omitted for duplicate)
+³  ÀÄ org.springframework:spring-tx:jar:2.5.5:compile
+³     ÃÄ (commons-logging:commons-logging:jar:1.1.1:compile - omitted for conflict with 1.1)
+³     ÃÄ (org.springframework:spring-beans:jar:2.5.5:compile - omitted for conflict with 2.5.6)
+³     ÃÄ (org.springframework:spring-context:jar:2.5.5:compile - omitted for conflict with 2.5.6)
+³     ÀÄ (org.springframework:spring-core:jar:2.5.5:compile - omitted for conflict with 2.5.6)
+ÃÄ active project artifact:
+	artifact = com.acme.org:foo-core-impl:jar:1.0.41-SNAPSHOT:compile;
+	project: MavenProject: com.acme.org:foo-core-impl:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core-impl/pom.xml
+³  ÃÄ active project artifact:
+	artifact = com.acme.org:foo-core:jar:1.0.41-SNAPSHOT:compile;
+	project: MavenProject: com.acme.org:foo-core:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core/pom.xml
+³  ³  ÀÄ (com.acme.org:commons-core:jar:2.39.0:compile - omitted for duplicate)
+³  ÃÄ (com.acme.org:commons-core:jar:2.39.0:compile - omitted for duplicate)
+³  ÃÄ (org.springframework:spring:jar:2.5.6:compile - omitted for duplicate)
+³  ÃÄ (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+³  ÃÄ (commons-collections:commons-collections:jar:3.2:compile - omitted for duplicate)
+³  ÀÄ com.acme.org:referentials-client:jar:2.11.11:compile
+³     ÃÄ com.acme.org:referentials-core:jar:2.11.10:compile
+³     ³  ÃÄ (com.acme.org:commons-client:jar:2.40.1:compile - omitted for duplicate)
+³     ³  ÀÄ (commons-collections:commons-collections:jar:3.2:compile - omitted for duplicate)
+³     ÀÄ (com.acme.org:commons-client:jar:2.40.1:compile - omitted for conflict with 2.39.0)
+ÃÄ com.acme.org:commons-core:jar:2.39.0:compile
+³  ÃÄ commons-dbutils:commons-dbutils:jar:1.2:compile
+³  ÃÄ oro:oro:jar:2.0.8:compile
+³  ÃÄ javax.xml.bind:jaxb-api:jar:2.1:compile (version managed from 2.0)
+³  ³  ÃÄ javax.xml.stream:stax-api:jar:1.0-2:compile
+³  ³  ÀÄ javax.activation:activation:jar:1.1:compile
+³  ÃÄ com.sun.xml.bind:jaxb-impl:jar:2.0.3:compile (version managed from 2.1.3)
+³  ³  ÃÄ (javax.xml.bind:jaxb-api:jar:2.1:compile - version managed from 2.0; omitted for duplicate)
+³  ³  ÃÄ javax.xml.bind:jsr173_api:jar:1.0:compile
+³  ³  ÀÄ (javax.activation:activation:jar:1.1:compile - omitted for duplicate)
+³  ÃÄ (org.springframework:spring:jar:2.5.6:compile - omitted for duplicate)
+³  ÃÄ (commons-codec:commons-codec:jar:1.4:compile - omitted for duplicate)
+³  ÃÄ org.springmodules:spring-modules-cache:jar:0.8:compile
+³  ÃÄ cglib:cglib-nodep:jar:2.1_3:compile
+³  ÃÄ commons-dbcp:commons-dbcp:jar:1.2.2:compile
+³  ³  ÀÄ commons-pool:commons-pool:jar:1.3:compile
+³  ÃÄ net.sf.ehcache:ehcache:jar:1.2.4:compile
+³  ³  ÀÄ (commons-logging:commons-logging:jar:1.0.4:compile - omitted for conflict with 1.1.1)
+³  ÃÄ (commons-collections:commons-collections:jar:3.2:compile - omitted for duplicate)
+³  ÃÄ commons-cli:commons-cli:jar:1.0:compile
+³  ³  ÃÄ (commons-logging:commons-logging:jar:1.0:compile - omitted for conflict with 1.1.1)
+³  ³  ÀÄ (commons-lang:commons-lang:jar:1.0:compile - omitted for conflict with 2.5)
+³  ÃÄ (commons-beanutils:commons-beanutils:jar:1.7.0:compile - omitted for duplicate)
+³  ÃÄ (commons-lang:commons-lang:jar:2.5:compile - omitted for duplicate)
+³  ÃÄ (c3p0:c3p0:jar:0.9.1.2:compile - omitted for conflict with 0.9.1)
+³  ÃÄ commons-httpclient:commons-httpclient:jar:3.0.1:compile
+³  ³  ÃÄ (junit:junit:jar:4.4:compile - version managed from 3.8.1; omitted for duplicate)
+³  ³  ÃÄ (commons-logging:commons-logging:jar:1.0.3:compile - omitted for conflict with 1.1.1)
+³  ³  ÀÄ (commons-codec:commons-codec:jar:1.2:compile - omitted for conflict with 1.4)
+³  ÃÄ log4j:log4j:jar:1.2.15:compile
+³  ³  ÃÄ javax.mail:mail:jar:1.4:compile
+³  ³  ³  ÀÄ (javax.activation:activation:jar:1.1:compile - omitted for duplicate)
+³  ³  ÃÄ javax.jms:jms:jar:1.1:compile
+³  ³  ÃÄ com.sun.jdmk:jmxtools:jar:1.2.1:compile
+³  ³  ÀÄ com.sun.jmx:jmxri:jar:1.2.1:compile
+³  ÃÄ xerces:xercesImpl:jar:2.8.1:compile
+³  ³  ÀÄ xml-apis:xml-apis:jar:1.0.b2:compile
+³  ÃÄ (commons-logging:commons-logging:jar:1.1:compile - omitted for conflict with 1.1.1)
+³  ÃÄ commons-logging:commons-logging-api:jar:1.1:compile
+³  ÀÄ com.itextpdf:itextpdf:jar:5.0.5:compile
+³     ÃÄ org.bouncycastle:bcmail-jdk14:jar:1.38:compile
+³     ³  ÀÄ (org.bouncycastle:bcprov-jdk14:jar:1.38:compile - omitted for duplicate)
+³     ÃÄ org.bouncycastle:bcprov-jdk14:jar:1.38:compile
+³     ÀÄ org.bouncycastle:bctsp-jdk14:jar:1.38:compile
+³        ÃÄ (org.bouncycastle:bcprov-jdk14:jar:1.38:compile - omitted for duplicate)
+³        ÀÄ (org.bouncycastle:bcmail-jdk14:jar:1.38:compile - omitted for duplicate)
+ÃÄ org.hibernate:hibernate-validator:jar:4.1.0.Final:compile
+³  ÃÄ (javax.validation:validation-api:jar:1.0.0.GA:compile - omitted for duplicate)
+³  ÀÄ org.slf4j:slf4j-api:jar:1.5.6:compile
+ÃÄ commons-logging:commons-logging:jar:1.1.1:compile
+ÃÄ commons-lang:commons-lang:jar:2.5:compile
+ÃÄ commons-codec:commons-codec:jar:1.4:compile
+ÃÄ commons-collections:commons-collections:jar:3.2:compile
+ÃÄ org.springframework:spring:jar:2.5.6:compile
+³  ÀÄ (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+ÃÄ org.springframework.batch:spring-batch-core:jar:2.0.0.RELEASE:compile
+³  ÃÄ (org.springframework.batch:spring-batch-infrastructure:jar:2.0.0.RELEASE:compile - omitted for duplicate)
+³  ÃÄ (commons-lang:commons-lang:jar:2.1:compile - omitted for conflict with 2.5)
+³  ÃÄ org.aspectj:aspectjrt:jar:1.5.4:compile
+³  ÃÄ org.aspectj:aspectjweaver:jar:1.5.4:compile
+³  ÃÄ com.thoughtworks.xstream:xstream:jar:1.3:compile
+³  ³  ÀÄ xpp3:xpp3_min:jar:1.1.4c:compile
+³  ÃÄ org.codehaus.jettison:jettison:jar:1.0:compile
+³  ÃÄ org.springframework:spring-aop:jar:2.5.6:compile
+³  ³  ÃÄ aopalliance:aopalliance:jar:1.0:compile
+³  ³  ÃÄ (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+³  ³  ÃÄ (org.springframework:spring-beans:jar:2.5.6:compile - omitted for duplicate)
+³  ³  ÀÄ (org.springframework:spring-core:jar:2.5.6:compile - omitted for duplicate)
+³  ÃÄ org.springframework:spring-beans:jar:2.5.6:compile
+³  ³  ÃÄ (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+³  ³  ÀÄ (org.springframework:spring-core:jar:2.5.6:compile - omitted for duplicate)
+³  ÃÄ org.springframework:spring-context:jar:2.5.6:compile
+³  ³  ÃÄ (aopalliance:aopalliance:jar:1.0:compile - omitted for duplicate)
+³  ³  ÃÄ (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+³  ³  ÃÄ (org.springframework:spring-beans:jar:2.5.6:compile - omitted for duplicate)
+³  ³  ÀÄ (org.springframework:spring-core:jar:2.5.6:compile - omitted for duplicate)
+³  ÃÄ org.springframework:spring-core:jar:2.5.6:compile
+³  ³  ÀÄ (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+³  ÃÄ (org.springframework:spring-tx:jar:2.5.6:compile - omitted for conflict with 2.5.5)
+³  ÀÄ stax:stax:jar:1.2.0:compile
+ÃÄ org.springframework.batch:spring-batch-infrastructure:jar:2.0.0.RELEASE:compile
+³  ÃÄ (commons-logging:commons-logging:jar:1.1.1:compile - omitted for duplicate)
+³  ÃÄ (org.springframework:spring-core:jar:2.5.6:compile - omitted for duplicate)
+³  ÀÄ (stax:stax:jar:1.2.0:compile - omitted for duplicate)
+ÃÄ javax.validation:validation-api:jar:1.0.0.GA:compile
+ÃÄ com.acme.org:commons-client:jar:2.39.0:runtime (scope not updated to compile)
+³  ÃÄ (com.acme.org:commons-core:jar:2.39.0:runtime - omitted for duplicate)
+³  ÃÄ javax.transaction:jta:jar:1.0.1B:runtime
+³  ÃÄ org.apache.activemq:activemq-core:jar:5.1.0:runtime
+³  ³  ÃÄ (commons-logging:commons-logging-api:jar:1.1:runtime - omitted for duplicate)
+³  ³  ÃÄ org.apache.camel:camel-core:jar:1.3.0:runtime
+³  ³  ³  ÃÄ (commons-logging:commons-logging-api:jar:1.0.4:runtime - omitted for conflict with 1.1)
+³  ³  ³  ÃÄ (javax.xml.bind:jaxb-api:jar:2.1:runtime - version managed from 2.0; omitted for duplicate)
+³  ³  ³  ÀÄ (com.sun.xml.bind:jaxb-impl:jar:2.0.3:runtime - version managed from 2.1.3; omitted for duplicate)
+³  ³  ÃÄ org.apache.geronimo.specs:geronimo-jms_1.1_spec:jar:1.1.1:runtime
+³  ³  ÀÄ org.apache.geronimo.specs:geronimo-j2ee-management_1.0_spec:jar:1.0:runtime
+³  ÃÄ org.apache.activemq:activeio-core:jar:3.1.0:runtime
+³  ³  ÃÄ (commons-logging:commons-logging:jar:1.1:runtime - omitted for conflict with 1.1.1)
+³  ³  ÀÄ backport-util-concurrent:backport-util-concurrent:jar:2.1:runtime
+³  ÃÄ com.ibm:mqjms:jar:6.0.0:runtime
+³  ÃÄ com.ibm:mq:jar:6.0.0:runtime
+³  ÃÄ com.ibm:connector:jar:6.0.0:runtime
+³  ÃÄ com.ibm:jta:jar:6.0.0:runtime
+³  ÀÄ com.ibm:dhbcore:jar:6.0.0:runtime
+ÃÄ com.oracle:ojdbc5:jar:11.2.0.1.0:runtime
+ÃÄ org.slf4j:slf4j-log4j12:jar:1.5.6:runtime
+³  ÀÄ (org.slf4j:slf4j-api:jar:1.5.6:runtime - omitted for duplicate)
+ÃÄ com.acme.org:commons-test:jar:2.26.8:test
+³  ÃÄ httpunit:httpunit:jar:1.7:test
+³  ³  ÃÄ javax.servlet:servlet-api:jar:2.3:test
+³  ³  ÀÄ jtidy:jtidy:jar:4aug2000r7-dev:test
+³  ÃÄ (org.springframework:spring:jar:2.5.6:test - omitted for duplicate)
+³  ÃÄ org.springframework:spring-test:jar:2.5.6:test
+³  ³  ÃÄ (commons-logging:commons-logging:jar:1.1.1:test - omitted for duplicate)
+³  ³  ÀÄ (junit:junit:jar:4.4:test - version managed from 3.8.1; omitted for duplicate)
+³  ÃÄ org.mortbay.jetty:jetty:jar:6.1.24:test
+³  ³  ÃÄ org.mortbay.jetty:jetty-util:jar:6.1.24:test
+³  ³  ÀÄ org.mortbay.jetty:servlet-api:jar:2.5-20081211:test
+³  ÃÄ (xml-apis:xml-apis:jar:1.0.b2:compile - scope updated from test; omitted for duplicate)
+³  ÃÄ jdom:jdom:jar:1.0:test
+³  ÃÄ (xerces:xercesImpl:jar:2.8.1:test - omitted for duplicate)
+³  ÃÄ (javax.xml.bind:jaxb-api:jar:2.1:test - version managed from 2.2.1; omitted for duplicate)
+³  ÃÄ (com.sun.xml.bind:jaxb-impl:jar:2.0.3:test - version managed from 2.2.1; omitted for duplicate)
+³  ÀÄ (commons-httpclient:commons-httpclient:jar:3.0.1:test - omitted for duplicate)
+ÃÄ org.mockito:mockito-all:jar:1.8.5:test
+ÃÄ org.powermock:powermock-api-mockito:jar:1.4.7:test
+³  ÃÄ (org.mockito:mockito-all:jar:1.8.5:test - omitted for duplicate)
+³  ÀÄ org.powermock:powermock-api-support:jar:1.4.7:test
+³     ÃÄ org.powermock:powermock-core:jar:1.4.7:test
+³     ³  ÃÄ (org.powermock:powermock-reflect:jar:1.4.7:test - omitted for duplicate)
+³     ³  ÀÄ org.javassist:javassist:jar:3.14.0-GA:test
+³     ÀÄ org.powermock:powermock-reflect:jar:1.4.7:test
+³        ÀÄ org.objenesis:objenesis:jar:1.2:test
+ÀÄ junit:junit:jar:4.4:test (scope not updated to compile)
