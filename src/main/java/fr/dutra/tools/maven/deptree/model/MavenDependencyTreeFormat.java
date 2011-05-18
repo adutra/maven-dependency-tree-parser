@@ -33,6 +33,14 @@ public enum MavenDependencyTreeFormat {
         public MavenDependencyTreeParser newParser() {
             return new MavenDependencyTreeGraphmlParser();
         }
+    },
+
+    TGF {
+
+        @Override
+        public MavenDependencyTreeParser newParser() {
+            return new MavenDependencyTreeTgfParser();
+        }
     };
 
     public abstract MavenDependencyTreeParser newParser();
