@@ -3,8 +3,6 @@ package fr.dutra.tools.maven.deptree.model;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.apache.commons.lang.StringUtils;
-
 public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedParser {
 
     public MavenDependencyNode parse(Reader reader) throws IOException {
@@ -21,7 +19,6 @@ public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedP
         final MavenDependencyNode node = this.parseLine();
 
         this.lineIndex++;
-
 
         //children
         while (this.lineIndex < this.lines.size() && this.computeDepth(this.lines.get(this.lineIndex)) > depth) {
@@ -88,36 +85,5 @@ public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedP
         return null;
     }
 
-
-    /**
-     * When doing an install at the same time, one can get this kink of output:
-     * <pre>
-     * +- active project artifact:
-     *     artifact = active project artifact:
-     *     artifact = active project artifact:
-     *     artifact = active project artifact:
-     *     artifact = active project artifact:
-     *     artifact = active project artifact:
-     *     artifact = active project artifact:
-     *     artifact = active project artifact:
-     *     artifact = com.acme.org:foobar:jar:1.0.41-SNAPSHOT:compile;
-     *     project: MavenProject: com.acme.org:foobar:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foobar/workspace/trunk/foobar/pom.xml;
-     *     project: MavenProject: com.acme.org:foobar:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foobar/workspace/trunk/foobar/pom.xml;
-     *     project: MavenProject: com.acme.org:foobar:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foobar/workspace/trunk/foobar/pom.xml;
-     *     project: MavenProject: com.acme.org:foobar:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foobar/workspace/trunk/foobar/pom.xml;
-     *     project: MavenProject: com.acme.org:foobar:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foobar/workspace/trunk/foobar/pom.xml;
-     *     project: MavenProject: com.acme.org:foobar:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foobar/workspace/trunk/foobar/pom.xml;
-     *     project: MavenProject: com.acme.org:foobar:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foobar/workspace/trunk/foobar/pom.xml;
-     *     project: MavenProject: com.acme.org:foobar:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foobar/workspace/trunk/foobar/pom.xml
-     * </pre>
-     */
-    private String extractActiveProjectArtifact() {
-        for(String tempLine = this.lines.get(this.lineIndex + 1); tempLine.startsWith("\t"); this.lineIndex++, tempLine = this.lines.get(this.lineIndex)) {
-            if(tempLine.startsWith("\tartifact = ") && ! tempLine.contains("active project artifact:")) {
-                return StringUtils.substringBefore(StringUtils.substringAfter(tempLine, "artifact = "), ";");
-            }
-        }
-        return null;
-    }
 
 }
