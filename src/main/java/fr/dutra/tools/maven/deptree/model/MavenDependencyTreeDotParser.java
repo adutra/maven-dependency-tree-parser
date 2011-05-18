@@ -63,10 +63,21 @@ public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedPa
      */
     private void parseLine() {
         String line = this.lines.get(this.lineIndex);
-        String parentArtifact = StringUtils.substringBetween(line, "\"");
+        String parentArtifact;
+        if(line.contains("->")) {
+            parentArtifact = StringUtils.substringBetween(line, "\"");
+        } else {
+            parentArtifact = extractActiveProjectArtifact();
+            line = lines.get(lineIndex);
+        }
         MavenDependencyNode parent = nodes.get(parentArtifact);
         if(parent != null) {
-            String childArtifact = StringUtils.substringBetween(line, "-> \"", "\" ;");
+            String childArtifact;
+            if(line.contains("active project artifact:")) {
+                childArtifact = extractActiveProjectArtifact();
+            } else {
+                childArtifact = StringUtils.substringBetween(line, "-> \"", "\" ;");
+            }
             MavenDependencyNode child = parseArtifactString(childArtifact);
             parent.addChildNode(child);
             nodes.put(childArtifact, child);

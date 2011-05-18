@@ -35,8 +35,8 @@ public class MavenDependencyTreeDotParserTest extends AbstractMavenDependencyTre
     }
 
     /*
-     * digraph "com.acme.org:foo-integration:jar:1.0.41-SNAPSHOT" {
-    "com.acme.org:foo-integration:jar:1.0.41-SNAPSHOT" -> "com.acme.org:commons-integration:jar:2.39.0:compile" ;
+     * digraph "com.acme.org:foo-integration:jar:2.0" {
+    "com.acme.org:foo-integration:jar:2.0" -> "com.acme.org:commons-integration:jar:2.39.0:compile" ;
      */
     @Test
     public void test_root_node_should_succeed() throws Exception {
@@ -53,7 +53,7 @@ public class MavenDependencyTreeDotParserTest extends AbstractMavenDependencyTre
     public void test_5_tokens_should_succeed() throws Exception {
         when(br.readLine()).
         thenReturn("digraph \"com.acme.org:foo-parent:jar:1.0\" {").
-        thenReturn("    \"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo-child:jar:2.0:compile\" ; ").
+        thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo-child:jar:2.0:compile\" ; ").
         thenReturn("}").
         thenReturn(null);
         MavenDependencyNode parent = parser.parse(r);
@@ -67,7 +67,7 @@ public class MavenDependencyTreeDotParserTest extends AbstractMavenDependencyTre
     public void test_6_tokens_with_description_should_succeed() throws Exception {
         when(br.readLine()).
         thenReturn("digraph \"com.acme.org:foo-parent:jar:1.0\" {").
-        thenReturn("    \"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:4.4:test (scope not updated to compile)\" ; ").
+        thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:4.4:test (scope not updated to compile)\" ; ").
         thenReturn("}").
         thenReturn(null);
         MavenDependencyNode parent = parser.parse(r);
@@ -81,7 +81,7 @@ public class MavenDependencyTreeDotParserTest extends AbstractMavenDependencyTre
     public void test_6_tokens_with_classifier_should_succeed() throws Exception {
         when(br.readLine()).
         thenReturn("digraph \"com.acme.org:foo-parent:jar:1.0\" {").
-        thenReturn("    \"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:win-32:4.4:test\" ; ").
+        thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:win-32:4.4:test\" ; ").
         thenReturn("}").
         thenReturn(null);
         MavenDependencyNode parent = parser.parse(r);
@@ -95,7 +95,7 @@ public class MavenDependencyTreeDotParserTest extends AbstractMavenDependencyTre
     public void test_7_tokens_should_succeed() throws Exception {
         when(br.readLine()).
         thenReturn("digraph \"com.acme.org:foo-parent:jar:1.0\" {").
-        thenReturn("    \"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:win-32:4.4:test (version managed from 2.1.3)\" ; ").
+        thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:win-32:4.4:test (version managed from 2.1.3)\" ; ").
         thenReturn("}").
         thenReturn(null);
         MavenDependencyNode parent = parser.parse(r);
@@ -109,7 +109,7 @@ public class MavenDependencyTreeDotParserTest extends AbstractMavenDependencyTre
     public void test_omitted_should_succeed() throws Exception {
         when(br.readLine()).
         thenReturn("digraph \"com.acme.org:foo-parent:jar:1.0\" {").
-        thenReturn("    \"com.acme.org:foo-parent:jar:1.0\" -> \"(com.acme.org:foo:jar:4.8.2:test - omitted for conflict with 4.8.1)\" ; ").
+        thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"(com.acme.org:foo:jar:4.8.2:test - omitted for conflict with 4.8.1)\" ; ").
         thenReturn("}").
         thenReturn(null);
         MavenDependencyNode parent = parser.parse(r);
@@ -141,10 +141,65 @@ public class MavenDependencyTreeDotParserTest extends AbstractMavenDependencyTre
     public void test_unknown_parent_should_fail() throws Exception {
         when(br.readLine()).
         thenReturn("digraph \"com.acme.org:foo-parent:jar:1.0\" {").
-        thenReturn("    \"com.acme.org:bar-parent:jar:1.0\" -> \"com.acme.org:bar-child:jar:2.0\" ; ").
+        thenReturn("\t\"com.acme.org:bar-parent:jar:1.0\" -> \"com.acme.org:bar-child:jar:2.0\" ; ").
         thenReturn("}").
         thenReturn(null);
         parser.parse(r);
+    }
+
+    @Test
+    public void test_active_project_should_succeed() throws Exception {
+        when(br.readLine()).
+        thenReturn("digraph \"com.acme.org:foo-parent:jar:1.0\" {").
+
+        //parent -> active child
+        thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"active project artifact:").
+        thenReturn("\tartifact = active project artifact:").
+        thenReturn("\tartifact = com.acme.org:foo-child:jar:2.0:compile;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-child:jar:2.0 @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-child/pom.xml;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-child:jar:2.0 @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-child/pom.xml\" ;").
+
+        //active child -> normal grand child
+        thenReturn("\t\"active project artifact:").
+        thenReturn("\tartifact = active project artifact:").
+        thenReturn("\tartifact = com.acme.org:foo-child:jar:2.0:compile;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-child:jar:2.0 @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-child/pom.xml;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-child:jar:2.0 @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-child/pom.xml\" -> \"com.acme.org:foo-grand-child-normal:jar:3.0:compile\" ;").
+
+        //active child -> active grand child
+        thenReturn("\t\"active project artifact:").
+        thenReturn("\tartifact = active project artifact:").
+        thenReturn("\tartifact = com.acme.org:foo-child:jar:2.0:compile;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-child:jar:2.0 @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-child/pom.xml;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-child:jar:2.0 @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-child/pom.xml\" -> \"active project artifact:").
+        thenReturn("\tartifact = active project artifact:").
+        thenReturn("\tartifact = com.acme.org:foo-grand-child-active:jar:3.0:compile;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-grand-child-active:jar:3.0 @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-grand-child-active/pom.xml;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-grand-child-active:jar:3.0 @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-grand-child-active/pom.xml\" ;").
+        thenReturn("}").
+
+        thenReturn(null);
+
+        MavenDependencyNode parent = parser.parse(r);
+        checkNode(parent, "com.acme.org", "foo-parent", "jar", "1.0", null, null, null, false);
+        assertEquals(1, parent.getChildNodes().size());
+        MavenDependencyNode child = parent.getFirstChildNode();
+        checkNode(child, "com.acme.org", "foo-child", "jar", "2.0", "compile", null, null, false);
+        assertNotNull(child.getParent());
+        assertSame(parent, child.getParent());
+
+        assertEquals(2, child.getChildNodes().size());
+
+        MavenDependencyNode grandChildNormal = child.getFirstChildNode();
+        checkNode(grandChildNormal, "com.acme.org", "foo-grand-child-normal", "jar", "3.0", "compile", null, null, false);
+        assertNotNull(grandChildNormal.getParent());
+        assertSame(child, grandChildNormal.getParent());
+
+        MavenDependencyNode grandChildActive = child.getLastChildNode();
+        checkNode(grandChildActive, "com.acme.org", "foo-grand-child-active", "jar", "3.0", "compile", null, null, false);
+        assertNotNull(grandChildActive.getParent());
+        assertSame(child, grandChildActive.getParent());
+
     }
 
     private MavenDependencyNode checkParentAndGetFirstChild(MavenDependencyNode parent) {

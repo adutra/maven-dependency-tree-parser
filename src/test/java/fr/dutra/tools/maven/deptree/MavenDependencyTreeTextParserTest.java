@@ -119,4 +119,25 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         assertSame(parent, child.getParent());
     }
 
+    @Test
+    public void test_active_project_should_succeed() throws Exception {
+        when(br.readLine()).
+        thenReturn("com.acme.org:foo:jar:1.0").
+        thenReturn("\\- active project artifact:").
+        thenReturn("\tartifact = active project artifact:").
+        thenReturn("\tartifact = active project artifact:").
+        thenReturn("\tartifact = com.acme.org:foo-core-impl:jar:1.0.41-SNAPSHOT:compile;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-core-impl:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core-impl/pom.xml;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-core-impl:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core-impl/pom.xml;").
+        thenReturn("\tproject: MavenProject: com.acme.org:foo-core-impl:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core-impl/pom.xml").
+        thenReturn(null);
+        MavenDependencyNode parent = parser.parse(r);
+        checkNode(parent, "com.acme.org", "foo", "jar", "1.0", null, null, null, false);
+        assertEquals(1, parent.getChildNodes().size());
+        MavenDependencyNode child = parent.getFirstChildNode();
+        checkNode(child, "com.acme.org", "foo-core-impl", "jar", "1.0.41-SNAPSHOT", "compile", null, null, false);
+        assertNotNull(child.getParent());
+        assertSame(parent, child.getParent());
+    }
+
 }
