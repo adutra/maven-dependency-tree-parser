@@ -1,4 +1,4 @@
-package fr.dutra.tools.maven.deptree.renderer;
+package fr.dutra.tools.maven.deptree.extras;
 
 import java.io.File;
 import java.util.Collection;
@@ -8,7 +8,7 @@ import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 
 
-public class JQueryTreeTableRenderer extends AbstractRenderer {
+public class JQueryTreeTableRenderer extends MavenDependencyTreeVelocityRenderer {
 
     @Override
     protected String getTemplatePath() {

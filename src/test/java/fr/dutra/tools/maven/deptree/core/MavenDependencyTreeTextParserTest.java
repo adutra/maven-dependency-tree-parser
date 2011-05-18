@@ -1,4 +1,4 @@
-package fr.dutra.tools.maven.deptree;
+package fr.dutra.tools.maven.deptree.core;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -14,12 +14,12 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import fr.dutra.tools.maven.deptree.model.MavenDependencyNode;
-import fr.dutra.tools.maven.deptree.model.MavenDependencyTreeTextParser;
+import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeNode;
+import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeTextParser;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(MavenDependencyTreeTextParser.class)
-public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTreeParserTest {
+public class MavenDependencyTreeTextParserTest extends MavenDependencyTreeAbstractParserTest {
 
     @Mock
     private BufferedReader br;
@@ -39,7 +39,7 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         when(br.readLine()).
         thenReturn("com.acme.org:foo:jar:1.0").
         thenReturn(null);
-        MavenDependencyNode tree = parser.parse(r);
+        MavenDependencyTreeNode tree = parser.parse(r);
         checkNode(tree, "com.acme.org", "foo", "jar", "1.0", null, null, null, false);
     }
 
@@ -48,7 +48,7 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         when(br.readLine()).
         thenReturn("com.acme.org:foo:jar:1.0:compile").
         thenReturn(null);
-        MavenDependencyNode tree = parser.parse(r);
+        MavenDependencyTreeNode tree = parser.parse(r);
         checkNode(tree, "com.acme.org", "foo", "jar", "1.0", "compile", null, null, false);
     }
 
@@ -57,7 +57,7 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         when(br.readLine()).
         thenReturn("com.acme.org:foo:jar:4.4:test (scope not updated to compile)").
         thenReturn(null);
-        MavenDependencyNode tree = parser.parse(r);
+        MavenDependencyTreeNode tree = parser.parse(r);
         checkNode(tree, "com.acme.org", "foo", "jar", "4.4", "test", null, "scope not updated to compile", false);
     }
 
@@ -66,7 +66,7 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         when(br.readLine()).
         thenReturn("com.acme.org:foo:jar:win-32:4.4:test").
         thenReturn(null);
-        MavenDependencyNode tree = parser.parse(r);
+        MavenDependencyTreeNode tree = parser.parse(r);
         checkNode(tree, "com.acme.org", "foo", "jar", "4.4", "test", "win-32", null, false);
     }
 
@@ -75,7 +75,7 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         when(br.readLine()).
         thenReturn("com.acme.org:foo:jar:win-32:4.4:test (version managed from 2.1.3)").
         thenReturn(null);
-        MavenDependencyNode tree = parser.parse(r);
+        MavenDependencyTreeNode tree = parser.parse(r);
         checkNode(tree, "com.acme.org", "foo", "jar", "4.4", "test", "win-32", "version managed from 2.1.3", false);
     }
 
@@ -84,7 +84,7 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         when(br.readLine()).
         thenReturn("(com.acme.org:foo:jar:4.8.2:test - omitted for conflict with 4.8.1)").
         thenReturn(null);
-        MavenDependencyNode tree = parser.parse(r);
+        MavenDependencyTreeNode tree = parser.parse(r);
         checkNode(tree, "com.acme.org", "foo", "jar", "4.8.2", "test", null, "omitted for conflict with 4.8.1", true);
     }
 
@@ -110,10 +110,10 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         thenReturn("com.acme.org:foo:jar:1.0").
         thenReturn("\\- org.apache.velocity:velocity:jar:1.6.4:compile").
         thenReturn(null);
-        MavenDependencyNode parent = parser.parse(r);
+        MavenDependencyTreeNode parent = parser.parse(r);
         checkNode(parent, "com.acme.org", "foo", "jar", "1.0", null, null, null, false);
         assertEquals(1, parent.getChildNodes().size());
-        MavenDependencyNode child = parent.getFirstChildNode();
+        MavenDependencyTreeNode child = parent.getFirstChildNode();
         checkNode(child, "org.apache.velocity", "velocity", "jar", "1.6.4", "compile", null, null, false);
         assertNotNull(child.getParent());
         assertSame(parent, child.getParent());
@@ -131,10 +131,10 @@ public class MavenDependencyTreeTextParserTest extends AbstractMavenDependencyTr
         thenReturn("\tproject: MavenProject: com.acme.org:foo-core-impl:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core-impl/pom.xml;").
         thenReturn("\tproject: MavenProject: com.acme.org:foo-core-impl:1.0.41-SNAPSHOT @ /opt/jenkins/home/jobs/foo/workspace/trunk/foo-core-impl/pom.xml").
         thenReturn(null);
-        MavenDependencyNode parent = parser.parse(r);
+        MavenDependencyTreeNode parent = parser.parse(r);
         checkNode(parent, "com.acme.org", "foo", "jar", "1.0", null, null, null, false);
         assertEquals(1, parent.getChildNodes().size());
-        MavenDependencyNode child = parent.getFirstChildNode();
+        MavenDependencyTreeNode child = parent.getFirstChildNode();
         checkNode(child, "com.acme.org", "foo-core-impl", "jar", "1.0.41-SNAPSHOT", "compile", null, null, false);
         assertNotNull(child.getParent());
         assertSame(parent, child.getParent());

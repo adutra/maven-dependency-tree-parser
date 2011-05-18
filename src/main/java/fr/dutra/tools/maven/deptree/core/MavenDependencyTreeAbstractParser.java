@@ -1,11 +1,11 @@
-package fr.dutra.tools.maven.deptree.model;
+package fr.dutra.tools.maven.deptree.core;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MavenDependencyTreeAbstractParser implements MavenDependencyTreeParser {
 
-    protected MavenDependencyNode parseArtifactString(final String artifact) {
+    protected MavenDependencyTreeNode parseArtifactString(final String artifact) {
         final List<String> tokens = new ArrayList<String>(7);
         int tokenStart = 0;
         boolean tokenStarted = false;
@@ -114,7 +114,7 @@ public abstract class MavenDependencyTreeAbstractParser implements MavenDependen
             throw new IllegalStateException("Wrong number of tokens: " + tokens.size() + " for artifact: " + artifact);
         }
 
-        final MavenDependencyNode node = new MavenDependencyNode(
+        final MavenDependencyTreeNode node = new MavenDependencyTreeNode(
             groupId,
             artifactId,
             packaging,

@@ -1,9 +1,10 @@
-package fr.dutra.tools.maven.deptree.model;
+package fr.dutra.tools.maven.deptree.core;
 
 import java.io.Serializable;
 import java.util.LinkedList;
 
-public class MavenDependencyNode implements Serializable {
+
+public class MavenDependencyTreeNode implements Serializable {
 
     /**
      * 
@@ -26,11 +27,11 @@ public class MavenDependencyNode implements Serializable {
 
     private final boolean omitted;
 
-    private MavenDependencyNode parent;
+    private MavenDependencyTreeNode parent;
 
-    private final LinkedList<MavenDependencyNode> childNodes = new LinkedList<MavenDependencyNode>();
+    private final LinkedList<MavenDependencyTreeNode> childNodes = new LinkedList<MavenDependencyTreeNode>();
 
-    public MavenDependencyNode(
+    public MavenDependencyTreeNode(
         final String groupId,
         final String artifactId,
         final String packaging,
@@ -82,32 +83,32 @@ public class MavenDependencyNode implements Serializable {
         return omitted;
     }
 
-    public MavenDependencyNode getParent() {
+    public MavenDependencyTreeNode getParent() {
         return parent;
     }
 
-    public LinkedList<MavenDependencyNode> getChildNodes() {
+    public LinkedList<MavenDependencyTreeNode> getChildNodes() {
         return this.childNodes;
     }
 
-    public boolean addChildNode(final MavenDependencyNode o) {
+    public boolean addChildNode(final MavenDependencyTreeNode o) {
         o.parent = this;
         return this.childNodes.add(o);
     }
 
-    public boolean remove(final MavenDependencyNode o) {
+    public boolean remove(final MavenDependencyTreeNode o) {
         return this.childNodes.remove(o);
     }
 
-    public MavenDependencyNode getChildNode(int index) {
+    public MavenDependencyTreeNode getChildNode(int index) {
         return childNodes.get(index);
     }
 
-    public MavenDependencyNode getFirstChildNode() {
+    public MavenDependencyTreeNode getFirstChildNode() {
         return childNodes.getFirst();
     }
 
-    public MavenDependencyNode getLastChildNode() {
+    public MavenDependencyTreeNode getLastChildNode() {
         return childNodes.getLast();
     }
 
@@ -116,6 +117,7 @@ public class MavenDependencyNode implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((artifactId == null) ? 0 : artifactId.hashCode());
+        result = prime * result + ((childNodes == null) ? 0 : childNodes.hashCode());
         result = prime * result + ((classifier == null) ? 0 : classifier.hashCode());
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
@@ -137,12 +139,19 @@ public class MavenDependencyNode implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        MavenDependencyNode other = (MavenDependencyNode) obj;
+        MavenDependencyTreeNode other = (MavenDependencyTreeNode) obj;
         if (artifactId == null) {
             if (other.artifactId != null) {
                 return false;
             }
         } else if (!artifactId.equals(other.artifactId)) {
+            return false;
+        }
+        if (childNodes == null) {
+            if (other.childNodes != null) {
+                return false;
+            }
+        } else if (!childNodes.equals(other.childNodes)) {
             return false;
         }
         if (classifier == null) {
@@ -194,8 +203,8 @@ public class MavenDependencyNode implements Serializable {
     }
 
     @Override
-    public MavenDependencyNode clone() {
-        final MavenDependencyNode clone = new MavenDependencyNode(
+    public MavenDependencyTreeNode clone() {
+        final MavenDependencyTreeNode clone = new MavenDependencyTreeNode(
             this.groupId,
             this.artifactId,
             this.packaging,
@@ -205,16 +214,15 @@ public class MavenDependencyNode implements Serializable {
             this.description,
             this.omitted
         );
-        for (final MavenDependencyNode childNode : this.childNodes) {
+        for (final MavenDependencyTreeNode childNode : this.childNodes) {
             clone.addChildNode(childNode.clone());
         }
         return clone;
     }
 
-
     @Override
     public String toString() {
-        MavenDependencyNodeToStringVisitor visitor = new MavenDependencyNodeToStringVisitor();
+        MavenDependencyTreeStandardTextVisitor visitor = new MavenDependencyTreeStandardTextVisitor();
         visitor.visit(this);
         return visitor.toString();
     }

@@ -1,8 +1,7 @@
-package fr.dutra.tools.maven.deptree.renderer;
+package fr.dutra.tools.maven.deptree.extras;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,9 +20,13 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
 
-import fr.dutra.tools.maven.deptree.model.MavenDependencyNode;
+import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeNode;
+import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeVisitException;
+import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeVisitor;
 
-public abstract class AbstractRenderer {
+public abstract class MavenDependencyTreeVelocityRenderer implements MavenDependencyTreeVisitor {
+
+    private static final String STATIC_RESOURCES_BASE = "/static";
 
     protected final class PathContainsFilter implements IOFileFilter {
 
@@ -50,24 +53,63 @@ public abstract class AbstractRenderer {
     {
         File staticDir = null;
         try {
-            staticDir = new File(this.getClass().getResource("/static").toURI());
+            staticDir = new File(this.getClass().getResource(STATIC_RESOURCES_BASE).toURI());
         } catch (URISyntaxException e) {
         }
         this.staticDir = staticDir;
     }
 
-    public void render(MavenDependencyNode tree, File outputDir) throws VelocityException, IOException {
-        generateMainFile(tree, outputDir);
-        copyResources(outputDir);
+    protected File outputDir;
+
+    protected String fileName = "index.html";
+
+    protected String encoding = "UTF-8";
+
+    public File getOutputDir() {
+        return outputDir;
     }
 
-    protected void generateMainFile(MavenDependencyNode tree, File outputDir) throws IOException, FileNotFoundException, UnsupportedEncodingException {
-        VelocityContext context = createVelocityContext(tree, outputDir);
-        Template t = createVelocityTemplate();
-        final FileOutputStream fos = new FileOutputStream(new File(outputDir, "index.html"));
-        final PrintWriter p = new PrintWriter(new OutputStreamWriter(fos, "UTF-8"));
+    public void setOutputDir(File outputDir) {
+        this.outputDir = outputDir;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+
+    public String getEncoding() {
+        return encoding;
+    }
+
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
+    }
+
+    public void visit(MavenDependencyTreeNode tree) throws MavenDependencyTreeVisitException {
         try {
-            t.merge(context, p);
+            generateMainFile(tree);
+            copyResources();
+        } catch (UnsupportedEncodingException e) {
+            throw new MavenDependencyTreeVisitException();
+        } catch (IOException e) {
+            throw new MavenDependencyTreeVisitException();
+        }
+    }
+
+    protected void generateMainFile(MavenDependencyTreeNode tree) throws IOException, UnsupportedEncodingException {
+        VelocityContext vc = createVelocityContext(tree);
+        Template t = createVelocityTemplate();
+        File mainFile = new File(getOutputDir(), getFileName());
+        final FileOutputStream fos = new FileOutputStream(mainFile);
+        final PrintWriter p = new PrintWriter(new OutputStreamWriter(fos, getEncoding()));
+        try {
+            t.merge(vc, p);
         } finally {
             p.close();
             fos.close();
@@ -93,11 +135,10 @@ public abstract class AbstractRenderer {
 
     protected abstract String getTemplatePath();
 
-    protected VelocityContext createVelocityContext(MavenDependencyNode tree, File outputDir) {
-        VelocityContext context = new VelocityContext();
-        context.put("tree", tree);
-        context.put("outputDir", outputDir);
-        return context;
+    protected VelocityContext createVelocityContext(MavenDependencyTreeNode tree) {
+        VelocityContext vc = new VelocityContext();
+        vc.put("tree", tree);
+        return vc;
     }
 
     protected VelocityEngine createVelocityEngine() throws IOException, VelocityException {
@@ -127,7 +168,7 @@ public abstract class AbstractRenderer {
 
     protected abstract String getVelocityPropertiesPath();
 
-    protected void copyResources(File outputDir) throws IOException {
+    protected void copyResources() throws IOException {
         String staticPath = staticDir.getAbsolutePath();
         final Collection<File> files = getFilesToCopy();
         final byte data[] = new byte[2048];
@@ -137,7 +178,7 @@ public abstract class AbstractRenderer {
             try {
                 is = new FileInputStream(src);
                 String relativePath = StringUtils.substringAfter(src.getAbsolutePath(), staticPath);
-                final File dest = new File(outputDir, relativePath);
+                final File dest = new File(getOutputDir(), relativePath);
                 final File parentFile = dest.getParentFile();
                 parentFile.mkdirs();
                 fos = new FileOutputStream(dest);

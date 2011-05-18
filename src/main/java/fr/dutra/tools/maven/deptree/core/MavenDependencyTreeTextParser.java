@@ -1,28 +1,36 @@
-package fr.dutra.tools.maven.deptree.model;
+package fr.dutra.tools.maven.deptree.core;
 
 import java.io.IOException;
 import java.io.Reader;
 
 public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedParser {
 
-    public MavenDependencyNode parse(Reader reader) throws IOException {
-        this.lines = splitLines(reader);
+    public MavenDependencyTreeNode parse(Reader reader) throws MavenDependencyTreeParseException {
+
+        try {
+            this.lines = splitLines(reader);
+        } catch (IOException e) {
+            throw new MavenDependencyTreeParseException(e);
+        }
+
         if(lines.isEmpty()) {
             return null;
         }
+
         return parseInternal(0);
+
     }
 
-    private MavenDependencyNode parseInternal(final int depth){
+    private MavenDependencyTreeNode parseInternal(final int depth){
 
         //current node
-        final MavenDependencyNode node = this.parseLine();
+        final MavenDependencyTreeNode node = this.parseLine();
 
         this.lineIndex++;
 
         //children
         while (this.lineIndex < this.lines.size() && this.computeDepth(this.lines.get(this.lineIndex)) > depth) {
-            final MavenDependencyNode child = this.parseInternal(depth + 1);
+            final MavenDependencyTreeNode child = this.parseInternal(depth + 1);
             if(node != null) {
                 node.addChildNode(child);
             }
@@ -57,7 +65,7 @@ public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedP
      * <pre>|  |  \- org.apache.activemq:activeio-core:test-jar:tests:3.1.0:compile</pre>
      * @return
      */
-    private MavenDependencyNode parseLine() {
+    private MavenDependencyTreeNode parseLine() {
         String line = this.lines.get(this.lineIndex);
         String artifact;
         if(line.contains("active project artifact:")) {

@@ -1,4 +1,4 @@
-package fr.dutra.tools.maven.deptree.model;
+package fr.dutra.tools.maven.deptree.core;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -9,13 +9,17 @@ import org.apache.commons.lang.StringUtils;
 
 public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedParser {
 
-    private Map<String, MavenDependencyNode> nodes = new HashMap<String, MavenDependencyNode>();
+    private Map<String, MavenDependencyTreeNode> nodes = new HashMap<String, MavenDependencyTreeNode>();
 
-    private MavenDependencyNode root;
+    private MavenDependencyTreeNode root;
 
-    public MavenDependencyNode parse(Reader reader) throws IOException {
+    public MavenDependencyTreeNode parse(Reader reader) throws MavenDependencyTreeParseException {
 
-        this.lines = splitLines(reader);
+        try {
+            this.lines = splitLines(reader);
+        } catch (IOException e) {
+            throw new MavenDependencyTreeParseException(e);
+        }
 
         if(lines.isEmpty()) {
             return null;
@@ -42,7 +46,7 @@ public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedPa
         if(tokens.length != 4) {
             throw new IllegalStateException("Wrong number of tokens: " + tokens.length + " for first line (4 expected)");
         }
-        final MavenDependencyNode node = new MavenDependencyNode(
+        final MavenDependencyTreeNode node = new MavenDependencyTreeNode(
             tokens[0],
             tokens[1],
             tokens[2],
@@ -59,7 +63,7 @@ public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedPa
 
     /**
      * sample line structure:
-     * <pre>"fr.dutra.tools.maven.deptree:maven-dependency-tree-parser:jar:1.0-SNAPSHOT" -> "org.mockito:mockito-all:jar:1.8.5:test" ;</pre>
+     * <pre>"fr.dutra.tools.maven.deptree.core:maven-dependency-tree-parser:jar:1.0-SNAPSHOT" -> "org.mockito:mockito-all:jar:1.8.5:test" ;</pre>
      */
     private void parseLine() {
         String line = this.lines.get(this.lineIndex);
@@ -70,7 +74,7 @@ public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedPa
             parentArtifact = extractActiveProjectArtifact();
             line = lines.get(lineIndex);
         }
-        MavenDependencyNode parent = nodes.get(parentArtifact);
+        MavenDependencyTreeNode parent = nodes.get(parentArtifact);
         if(parent != null) {
             String childArtifact;
             if(line.contains("active project artifact:")) {
@@ -78,7 +82,7 @@ public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedPa
             } else {
                 childArtifact = StringUtils.substringBetween(line, "-> \"", "\" ;");
             }
-            MavenDependencyNode child = parseArtifactString(childArtifact);
+            MavenDependencyTreeNode child = parseArtifactString(childArtifact);
             parent.addChildNode(child);
             nodes.put(childArtifact, child);
         } else {

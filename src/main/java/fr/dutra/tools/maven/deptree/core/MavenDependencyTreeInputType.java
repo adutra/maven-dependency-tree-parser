@@ -1,7 +1,7 @@
 /**
  * 
  */
-package fr.dutra.tools.maven.deptree.model;
+package fr.dutra.tools.maven.deptree.core;
 
 
 
@@ -9,7 +9,7 @@ package fr.dutra.tools.maven.deptree.model;
  * @author Alexandre Dutra
  *
  */
-public enum MavenDependencyTreeFormat {
+public enum MavenDependencyTreeInputType {
 
     TEXT {
 

@@ -1,14 +1,14 @@
 /**
  * 
  */
-package fr.dutra.tools.maven.deptree.model;
+package fr.dutra.tools.maven.deptree.core;
 
 
 /**
  * @author Alexandre Dutra
  *
  */
-public class MavenDependencyNodeParseException extends Exception {
+public class MavenDependencyTreeParseException extends Exception {
 
     /**
      * 
@@ -18,20 +18,20 @@ public class MavenDependencyNodeParseException extends Exception {
     /**
      * 
      */
-    public MavenDependencyNodeParseException() {
+    public MavenDependencyTreeParseException() {
     }
 
     /**
      * @param message
      */
-    public MavenDependencyNodeParseException(String message) {
+    public MavenDependencyTreeParseException(String message) {
         super(message);
     }
 
     /**
      * @param cause
      */
-    public MavenDependencyNodeParseException(Throwable cause) {
+    public MavenDependencyTreeParseException(Throwable cause) {
         super(cause);
     }
 
@@ -39,7 +39,7 @@ public class MavenDependencyNodeParseException extends Exception {
      * @param message
      * @param cause
      */
-    public MavenDependencyNodeParseException(String message, Throwable cause) {
+    public MavenDependencyTreeParseException(String message, Throwable cause) {
         super(message, cause);
     }
 

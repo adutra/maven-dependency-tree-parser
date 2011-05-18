@@ -1,4 +1,4 @@
-package fr.dutra.tools.maven.deptree.model;
+package fr.dutra.tools.maven.deptree.core;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -13,15 +13,20 @@ public class MavenDependencyTreeTgfParser extends MavenDependencyTreeLineBasedPa
         NODE, EDGE
     }
 
-    private Map<String, MavenDependencyNode> nodes = new HashMap<String, MavenDependencyNode>();
+    private Map<String, MavenDependencyTreeNode> nodes = new HashMap<String, MavenDependencyTreeNode>();
 
-    private MavenDependencyNode root;
+    private MavenDependencyTreeNode root;
 
     private ParsePhase phase = ParsePhase.NODE;
 
-    public MavenDependencyNode parse(Reader reader) throws IOException {
+    public MavenDependencyTreeNode parse(Reader reader) throws MavenDependencyTreeParseException {
 
-        this.lines = splitLines(reader);
+        try {
+            this.lines = splitLines(reader);
+        } catch (IOException e) {
+            throw new MavenDependencyTreeParseException(e);
+        }
+
 
         if(lines.isEmpty()) {
             return null;
@@ -55,7 +60,7 @@ public class MavenDependencyTreeTgfParser extends MavenDependencyTreeLineBasedPa
             } else {
                 artifact = StringUtils.substringAfter(line, " ");
             }
-            MavenDependencyNode node = parseArtifactString(artifact);
+            MavenDependencyTreeNode node = parseArtifactString(artifact);
             if(root == null) {
                 this.root = node;
             }
@@ -63,8 +68,8 @@ public class MavenDependencyTreeTgfParser extends MavenDependencyTreeLineBasedPa
         } else {
             String parentId = StringUtils.substringBefore(line, " ");
             String childId = StringUtils.substringBetween(line, " ");
-            MavenDependencyNode parent = nodes.get(parentId);
-            MavenDependencyNode child = nodes.get(childId);
+            MavenDependencyTreeNode parent = nodes.get(parentId);
+            MavenDependencyTreeNode child = nodes.get(childId);
             parent.addChildNode(child);
         }
     }

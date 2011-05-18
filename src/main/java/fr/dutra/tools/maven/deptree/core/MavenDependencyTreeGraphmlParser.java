@@ -1,4 +1,4 @@
-package fr.dutra.tools.maven.deptree.model;
+package fr.dutra.tools.maven.deptree.core;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -16,7 +16,7 @@ import org.xml.sax.helpers.DefaultHandler;
 
 public class MavenDependencyTreeGraphmlParser extends MavenDependencyTreeAbstractParser {
 
-    public MavenDependencyNode parse(Reader reader) throws IOException, MavenDependencyNodeParseException {
+    public MavenDependencyTreeNode parse(Reader reader) throws MavenDependencyTreeParseException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setNamespaceAware(true);
         factory.setValidating(true);
@@ -26,23 +26,25 @@ public class MavenDependencyTreeGraphmlParser extends MavenDependencyTreeAbstrac
             saxParser.parse(new InputSource(reader), handler);
             return handler.getRootNode();
         } catch (ParserConfigurationException e) {
-            throw new MavenDependencyNodeParseException(e);
+            throw new MavenDependencyTreeParseException(e);
         } catch (SAXException e) {
-            throw new MavenDependencyNodeParseException(e);
+            throw new MavenDependencyTreeParseException(e);
+        } catch (IOException e) {
+            throw new MavenDependencyTreeParseException(e);
         }
     }
 
     private class EventHandler extends DefaultHandler {
 
-        private Map<String, MavenDependencyNode> nodes = new HashMap<String, MavenDependencyNode>();
+        private Map<String, MavenDependencyTreeNode> nodes = new HashMap<String, MavenDependencyTreeNode>();
 
         private String currentNodeId;
 
         private boolean insideNodeLabel;
 
-        private MavenDependencyNode root;
+        private MavenDependencyTreeNode root;
 
-        public MavenDependencyNode getRootNode() {
+        public MavenDependencyTreeNode getRootNode() {
             return root;
         }
 
@@ -56,8 +58,8 @@ public class MavenDependencyTreeGraphmlParser extends MavenDependencyTreeAbstrac
             if ("edge".equals(localName)){
                 String parentNodeId = attributes.getValue("", "source");
                 String childNodeId = attributes.getValue("", "target");
-                MavenDependencyNode parent = nodes.get(parentNodeId);
-                MavenDependencyNode child = nodes.get(childNodeId);
+                MavenDependencyTreeNode parent = nodes.get(parentNodeId);
+                MavenDependencyTreeNode child = nodes.get(childNodeId);
                 parent.addChildNode(child);
             }
 
@@ -74,7 +76,7 @@ public class MavenDependencyTreeGraphmlParser extends MavenDependencyTreeAbstrac
         public void characters(char[] ch, int start, int length) throws SAXException {
             if(insideNodeLabel) {
                 String artifact = String.valueOf(ch, start, length).trim();
-                MavenDependencyNode node = parseArtifactString(artifact);
+                MavenDependencyTreeNode node = parseArtifactString(artifact);
                 nodes.put(currentNodeId, node);
                 if(root == null) {
                     root = node;
