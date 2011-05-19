@@ -22,6 +22,11 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Parser for DOT files.
+ * @author Alexandre Dutra
+ *
+ */
 public class DotParser extends AbstractLineBasedParser {
 
     private Map<String, Node> nodes = new HashMap<String, Node>();
