@@ -15,12 +15,20 @@
  */
 package fr.dutra.tools.maven.deptree.core;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
+import junit.framework.Assert;
+
+import org.apache.commons.lang.text.StrTokenizer;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -29,9 +37,39 @@ import org.junit.runners.Parameterized.Parameters;
 @RunWith(Parameterized.class)
 public class TextWhitespaceIT {
 
+    private static class CheckLine {
+        private int depth;
+        private String groupId;
+        private String artifactId;
+        private String packaging;
+        private String classifier;
+        private String version;
+        private String scope;
+        private boolean omitted;
+        private String description;
+        public static CheckLine parse(String line) {
+            CheckLine cl = new CheckLine();
+            String[] tokens = StrTokenizer.getCSVInstance(line).setDelimiterChar(',').setEmptyTokenAsNull(true).getTokenArray();
+            cl.depth = Integer.parseInt(tokens[0]);
+            cl.groupId = tokens[1];
+            cl.artifactId = tokens[2];
+            cl.packaging = tokens[3];
+            cl.classifier = tokens[4];
+            cl.version = tokens[5];
+            cl.scope = tokens[6];
+            cl.omitted = Boolean.parseBoolean(tokens[7]);
+            cl.description = tokens[8];
+            return cl;
+        }
+    }
+
     private String filename;
 
     private InputType type;
+
+    private int index;
+
+    private static List<CheckLine> cls;
 
     public TextWhitespaceIT(String filename, InputType type) {
         super();
@@ -52,13 +90,42 @@ public class TextWhitespaceIT {
         return Arrays.asList(data);
     }
 
+    @BeforeClass
+    public static void setUpCheckFile() throws IOException {
+        InputStream is = TextWhitespaceIT.class.getResourceAsStream("/output-files/check.txt");
+        BufferedReader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+        cls = new ArrayList<CheckLine>();
+        String line = null;
+        while((line = r.readLine()) != null) {
+            CheckLine cl = CheckLine.parse(line);
+            cls.add(cl);
+        }
+    }
+
     @Test
     public void test() throws Exception {
         InputStream is = this.getClass().getResourceAsStream(filename);
         Reader r = new InputStreamReader(is, "UTF-8");
         Parser parser = type.newParser();
         Node tree = parser.parse(r);
-        System.out.println(tree);
+        this.index = 0;
+        checkNode(tree, 0);
+    }
+
+    private void checkNode(Node node, int depth) {
+        CheckLine cl = cls.get(index++);
+        Assert.assertEquals(cl.depth, depth);
+        Assert.assertEquals(cl.groupId, node.getGroupId());
+        Assert.assertEquals(cl.artifactId, node.getArtifactId());
+        Assert.assertEquals(cl.packaging, node.getPackaging());
+        Assert.assertEquals(cl.classifier, node.getClassifier());
+        Assert.assertEquals(cl.version, node.getVersion());
+        Assert.assertEquals(cl.scope, node.getScope());
+        Assert.assertEquals(cl.omitted, node.isOmitted());
+        Assert.assertEquals(cl.description, node.getDescription());
+        for (Node child : node.getChildNodes()) {
+            checkNode(child, depth + 1);
+        }
     }
 
 }
