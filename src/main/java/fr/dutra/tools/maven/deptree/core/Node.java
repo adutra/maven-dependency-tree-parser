@@ -237,13 +237,15 @@ public class Node implements Serializable {
         for (final Node childNode : this.childNodes) {
             clone.addChildNode(childNode.clone());
         }
+        //the clone has no parent
         return clone;
     }
 
     @Override
     public String toString() {
         StandardTextVisitor visitor = new StandardTextVisitor();
-        visitor.visit(this);
+        //consider the current node as a root node
+        visitor.visit(this.parent == null ? this : this.clone());
         return visitor.toString();
     }
 
@@ -257,6 +259,10 @@ public class Node implements Serializable {
         builder.append(this.artifactId);
         builder.append(":");
         builder.append(this.packaging);
+        if(this.classifier != null) {
+            builder.append(":");
+            builder.append(this.classifier);
+        }
         builder.append(":");
         builder.append(this.version);
         if(this.scope != null) {
