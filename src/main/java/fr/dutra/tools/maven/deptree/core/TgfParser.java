@@ -7,24 +7,24 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-public class MavenDependencyTreeTgfParser extends MavenDependencyTreeLineBasedParser {
+public class TgfParser extends AbstractLineBasedParser {
 
     private static enum ParsePhase {
         NODE, EDGE
     }
 
-    private Map<String, MavenDependencyTreeNode> nodes = new HashMap<String, MavenDependencyTreeNode>();
+    private Map<String, Node> nodes = new HashMap<String, Node>();
 
-    private MavenDependencyTreeNode root;
+    private Node root;
 
     private ParsePhase phase = ParsePhase.NODE;
 
-    public MavenDependencyTreeNode parse(Reader reader) throws MavenDependencyTreeParseException {
+    public Node parse(Reader reader) throws ParseException {
 
         try {
             this.lines = splitLines(reader);
         } catch (IOException e) {
-            throw new MavenDependencyTreeParseException(e);
+            throw new ParseException(e);
         }
 
 
@@ -60,7 +60,7 @@ public class MavenDependencyTreeTgfParser extends MavenDependencyTreeLineBasedPa
             } else {
                 artifact = StringUtils.substringAfter(line, " ");
             }
-            MavenDependencyTreeNode node = parseArtifactString(artifact);
+            Node node = parseArtifactString(artifact);
             if(root == null) {
                 this.root = node;
             }
@@ -68,8 +68,8 @@ public class MavenDependencyTreeTgfParser extends MavenDependencyTreeLineBasedPa
         } else {
             String parentId = StringUtils.substringBefore(line, " ");
             String childId = StringUtils.substringBetween(line, " ");
-            MavenDependencyTreeNode parent = nodes.get(parentId);
-            MavenDependencyTreeNode child = nodes.get(childId);
+            Node parent = nodes.get(parentId);
+            Node child = nodes.get(childId);
             parent.addChildNode(child);
         }
     }

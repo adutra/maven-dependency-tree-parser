@@ -3,14 +3,14 @@ package fr.dutra.tools.maven.deptree.core;
 import java.io.IOException;
 import java.io.Reader;
 
-public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedParser {
+public class TextParser extends AbstractLineBasedParser {
 
-    public MavenDependencyTreeNode parse(Reader reader) throws MavenDependencyTreeParseException {
+    public Node parse(Reader reader) throws ParseException {
 
         try {
             this.lines = splitLines(reader);
         } catch (IOException e) {
-            throw new MavenDependencyTreeParseException(e);
+            throw new ParseException(e);
         }
 
         if(lines.isEmpty()) {
@@ -21,16 +21,16 @@ public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedP
 
     }
 
-    private MavenDependencyTreeNode parseInternal(final int depth){
+    private Node parseInternal(final int depth){
 
         //current node
-        final MavenDependencyTreeNode node = this.parseLine();
+        final Node node = this.parseLine();
 
         this.lineIndex++;
 
         //children
         while (this.lineIndex < this.lines.size() && this.computeDepth(this.lines.get(this.lineIndex)) > depth) {
-            final MavenDependencyTreeNode child = this.parseInternal(depth + 1);
+            final Node child = this.parseInternal(depth + 1);
             if(node != null) {
                 node.addChildNode(child);
             }
@@ -40,32 +40,15 @@ public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedP
     }
 
     private int computeDepth(final String line) {
-        int depth = 0;
-        for (int i = 0; i < line.length(); i++) {
-            final char c = line.charAt(i);
-            switch (c){
-                case ' ':
-                case '|':
-                case '+':
-                case '\\':
-                case '-':
-                    continue;
-                default:
-                    depth = i/3;
-                    break;
-            }
-            break;
-        }
-        return depth;
+        return getArtifactIndex(line)/3;
     }
-
 
     /**
      * sample lineIndex structure:
      * <pre>|  |  \- org.apache.activemq:activeio-core:test-jar:tests:3.1.0:compile</pre>
      * @return
      */
-    private MavenDependencyTreeNode parseLine() {
+    private Node parseLine() {
         String line = this.lines.get(this.lineIndex);
         String artifact;
         if(line.contains("active project artifact:")) {
@@ -77,20 +60,28 @@ public class MavenDependencyTreeTextParser extends MavenDependencyTreeLineBasedP
     }
 
     private String extractArtifact(String line) {
+        return line.substring(getArtifactIndex(line));
+    }
+
+    private int getArtifactIndex(final String line) {
         for (int i = 0; i < line.length(); i++) {
             final char c = line.charAt(i);
             switch (c){
-                case ' ':
-                case '|':
-                case '+':
-                case '\\':
-                case '-':
+                case ' '://whitespace, standard and extended
+                case '|'://standard
+                case '+'://standard
+                case '\\'://standard
+                case '-'://standard
+                case '³'://extended
+                case 'Ã'://extended
+                case 'Ä'://extended
+                case 'À'://extended
                     continue;
                 default:
-                    return line.substring(i);
+                    return i;
             }
         }
-        return null;
+        return -1;
     }
 
 

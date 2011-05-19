@@ -14,12 +14,12 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeNode;
-import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeDotParser;
+import fr.dutra.tools.maven.deptree.core.Node;
+import fr.dutra.tools.maven.deptree.core.DotParser;
 
 @RunWith(PowerMockRunner.class)
-@PrepareForTest(MavenDependencyTreeDotParser.class)
-public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstractParserTest {
+@PrepareForTest(DotParser.class)
+public class DotParserTest extends AbstractParserTest {
 
     @Mock
     private BufferedReader br;
@@ -27,7 +27,7 @@ public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstrac
     @Mock
     private Reader r;
 
-    private MavenDependencyTreeDotParser parser = new MavenDependencyTreeDotParser();
+    private DotParser parser = new DotParser();
 
     @Before
     public void setUp() throws Exception {
@@ -44,7 +44,7 @@ public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstrac
         thenReturn("digraph \"com.acme.org:foo-parent:jar:1.0\" {").
         thenReturn("}").
         thenReturn(null);
-        MavenDependencyTreeNode parent = parser.parse(r);
+        Node parent = parser.parse(r);
         checkNode(parent, "com.acme.org", "foo-parent", "jar", "1.0", null, null, null, false);
         assertEquals(0, parent.getChildNodes().size());
     }
@@ -56,8 +56,8 @@ public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstrac
         thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo-child:jar:2.0:compile\" ; ").
         thenReturn("}").
         thenReturn(null);
-        MavenDependencyTreeNode parent = parser.parse(r);
-        MavenDependencyTreeNode child = checkParentAndGetFirstChild(parent);
+        Node parent = parser.parse(r);
+        Node child = checkParentAndGetFirstChild(parent);
         checkNode(child, "com.acme.org", "foo-child", "jar", "2.0", "compile", null, null, false);
         assertNotNull(child.getParent());
         assertSame(parent, child.getParent());
@@ -70,8 +70,8 @@ public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstrac
         thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:4.4:test (scope not updated to compile)\" ; ").
         thenReturn("}").
         thenReturn(null);
-        MavenDependencyTreeNode parent = parser.parse(r);
-        MavenDependencyTreeNode child = checkParentAndGetFirstChild(parent);
+        Node parent = parser.parse(r);
+        Node child = checkParentAndGetFirstChild(parent);
         checkNode(child, "com.acme.org", "foo", "jar", "4.4", "test", null, "scope not updated to compile", false);
         assertNotNull(child.getParent());
         assertSame(parent, child.getParent());
@@ -84,8 +84,8 @@ public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstrac
         thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:win-32:4.4:test\" ; ").
         thenReturn("}").
         thenReturn(null);
-        MavenDependencyTreeNode parent = parser.parse(r);
-        MavenDependencyTreeNode child = checkParentAndGetFirstChild(parent);
+        Node parent = parser.parse(r);
+        Node child = checkParentAndGetFirstChild(parent);
         checkNode(child, "com.acme.org", "foo", "jar", "4.4", "test", "win-32", null, false);
         assertNotNull(child.getParent());
         assertSame(parent, child.getParent());
@@ -98,8 +98,8 @@ public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstrac
         thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"com.acme.org:foo:jar:win-32:4.4:test (version managed from 2.1.3)\" ; ").
         thenReturn("}").
         thenReturn(null);
-        MavenDependencyTreeNode parent = parser.parse(r);
-        MavenDependencyTreeNode child = checkParentAndGetFirstChild(parent);
+        Node parent = parser.parse(r);
+        Node child = checkParentAndGetFirstChild(parent);
         checkNode(child, "com.acme.org", "foo", "jar", "4.4", "test", "win-32", "version managed from 2.1.3", false);
         assertNotNull(child.getParent());
         assertSame(parent, child.getParent());
@@ -112,8 +112,8 @@ public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstrac
         thenReturn("\t\"com.acme.org:foo-parent:jar:1.0\" -> \"(com.acme.org:foo:jar:4.8.2:test - omitted for conflict with 4.8.1)\" ; ").
         thenReturn("}").
         thenReturn(null);
-        MavenDependencyTreeNode parent = parser.parse(r);
-        MavenDependencyTreeNode child = checkParentAndGetFirstChild(parent);
+        Node parent = parser.parse(r);
+        Node child = checkParentAndGetFirstChild(parent);
         checkNode(child, "com.acme.org", "foo", "jar", "4.8.2", "test", null, "omitted for conflict with 4.8.1", true);
         assertNotNull(child.getParent());
         assertSame(parent, child.getParent());
@@ -180,32 +180,32 @@ public class MavenDependencyTreeDotParserTest extends MavenDependencyTreeAbstrac
 
         thenReturn(null);
 
-        MavenDependencyTreeNode parent = parser.parse(r);
+        Node parent = parser.parse(r);
         checkNode(parent, "com.acme.org", "foo-parent", "jar", "1.0", null, null, null, false);
         assertEquals(1, parent.getChildNodes().size());
-        MavenDependencyTreeNode child = parent.getFirstChildNode();
+        Node child = parent.getFirstChildNode();
         checkNode(child, "com.acme.org", "foo-child", "jar", "2.0", "compile", null, null, false);
         assertNotNull(child.getParent());
         assertSame(parent, child.getParent());
 
         assertEquals(2, child.getChildNodes().size());
 
-        MavenDependencyTreeNode grandChildNormal = child.getFirstChildNode();
+        Node grandChildNormal = child.getFirstChildNode();
         checkNode(grandChildNormal, "com.acme.org", "foo-grand-child-normal", "jar", "3.0", "compile", null, null, false);
         assertNotNull(grandChildNormal.getParent());
         assertSame(child, grandChildNormal.getParent());
 
-        MavenDependencyTreeNode grandChildActive = child.getLastChildNode();
+        Node grandChildActive = child.getLastChildNode();
         checkNode(grandChildActive, "com.acme.org", "foo-grand-child-active", "jar", "3.0", "compile", null, null, false);
         assertNotNull(grandChildActive.getParent());
         assertSame(child, grandChildActive.getParent());
 
     }
 
-    private MavenDependencyTreeNode checkParentAndGetFirstChild(MavenDependencyTreeNode parent) {
+    private Node checkParentAndGetFirstChild(Node parent) {
         checkNode(parent, "com.acme.org", "foo-parent", "jar", "1.0", null, null, null, false);
         assertEquals(1, parent.getChildNodes().size());
-        MavenDependencyTreeNode child = parent.getFirstChildNode();
+        Node child = parent.getFirstChildNode();
         return child;
     }
 

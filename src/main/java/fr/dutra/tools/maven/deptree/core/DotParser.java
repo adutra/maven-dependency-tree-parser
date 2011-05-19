@@ -7,18 +7,18 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
-public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedParser {
+public class DotParser extends AbstractLineBasedParser {
 
-    private Map<String, MavenDependencyTreeNode> nodes = new HashMap<String, MavenDependencyTreeNode>();
+    private Map<String, Node> nodes = new HashMap<String, Node>();
 
-    private MavenDependencyTreeNode root;
+    private Node root;
 
-    public MavenDependencyTreeNode parse(Reader reader) throws MavenDependencyTreeParseException {
+    public Node parse(Reader reader) throws ParseException {
 
         try {
             this.lines = splitLines(reader);
         } catch (IOException e) {
-            throw new MavenDependencyTreeParseException(e);
+            throw new ParseException(e);
         }
 
         if(lines.isEmpty()) {
@@ -46,7 +46,7 @@ public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedPa
         if(tokens.length != 4) {
             throw new IllegalStateException("Wrong number of tokens: " + tokens.length + " for first line (4 expected)");
         }
-        final MavenDependencyTreeNode node = new MavenDependencyTreeNode(
+        final Node node = new Node(
             tokens[0],
             tokens[1],
             tokens[2],
@@ -74,7 +74,7 @@ public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedPa
             parentArtifact = extractActiveProjectArtifact();
             line = lines.get(lineIndex);
         }
-        MavenDependencyTreeNode parent = nodes.get(parentArtifact);
+        Node parent = nodes.get(parentArtifact);
         if(parent != null) {
             String childArtifact;
             if(line.contains("active project artifact:")) {
@@ -82,7 +82,7 @@ public class MavenDependencyTreeDotParser extends MavenDependencyTreeLineBasedPa
             } else {
                 childArtifact = StringUtils.substringBetween(line, "-> \"", "\" ;");
             }
-            MavenDependencyTreeNode child = parseArtifactString(childArtifact);
+            Node child = parseArtifactString(childArtifact);
             parent.addChildNode(child);
             nodes.put(childArtifact, child);
         } else {

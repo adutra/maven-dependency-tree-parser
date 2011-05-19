@@ -3,12 +3,12 @@
  */
 package fr.dutra.tools.maven.deptree.extras;
 
-public enum MavenDependencyTreeVelocityRenderType {
+public enum VelocityRenderType {
 
     JQUERY_JSTREE {
 
         @Override
-        public MavenDependencyTreeVelocityRenderer newRenderer() {
+        public VelocityRenderer newRenderer() {
             return new JQueryJSTreeRenderer();
         }
     },
@@ -16,10 +16,10 @@ public enum MavenDependencyTreeVelocityRenderType {
     JQUERY_TREE_TABLE {
 
         @Override
-        public MavenDependencyTreeVelocityRenderer newRenderer() {
+        public VelocityRenderer newRenderer() {
             return new JQueryTreeTableRenderer();
         }
     };
 
-    public abstract MavenDependencyTreeVelocityRenderer newRenderer();
+    public abstract VelocityRenderer newRenderer();
 }

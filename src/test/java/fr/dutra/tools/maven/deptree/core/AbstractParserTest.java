@@ -1,11 +1,11 @@
 package fr.dutra.tools.maven.deptree.core;
 
 import static org.junit.Assert.*;
-import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeNode;
+import fr.dutra.tools.maven.deptree.core.Node;
 
-public abstract class MavenDependencyTreeAbstractParserTest {
+public abstract class AbstractParserTest {
 
-    protected void checkNode(MavenDependencyTreeNode node, String groupId, String artifactId, String packaging, String version, String scope, String classifier, String description, boolean omitted) {
+    protected void checkNode(Node node, String groupId, String artifactId, String packaging, String version, String scope, String classifier, String description, boolean omitted) {
         assertNotNull(node);
         assertEquals(groupId, node.getGroupId());
         assertEquals(artifactId, node.getArtifactId());

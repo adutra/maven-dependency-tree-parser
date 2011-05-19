@@ -10,10 +10,10 @@ import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 import org.apache.velocity.VelocityContext;
 
-import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeNode;
+import fr.dutra.tools.maven.deptree.core.Node;
 
 
-public class JQueryJSTreeRenderer extends MavenDependencyTreeVelocityRenderer {
+public class JQueryJSTreeRenderer extends VelocityRenderer {
 
     private Map<String, String> imagesMap = new HashMap<String, String>();
 
@@ -38,7 +38,7 @@ public class JQueryJSTreeRenderer extends MavenDependencyTreeVelocityRenderer {
     }
 
     @Override
-    protected VelocityContext createVelocityContext(MavenDependencyTreeNode tree) {
+    protected VelocityContext createVelocityContext(Node tree) {
         VelocityContext context = super.createVelocityContext(tree);
         context.put("imagesMap", imagesMap);
         return context;

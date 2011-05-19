@@ -9,16 +9,16 @@ package fr.dutra.tools.maven.deptree.core;
  * @author Alexandre Dutra
  *
  */
-public class MavenDependencyTreeWhitespaceTextVisitor extends MavenDependencyTreeAbstractTextVisitor {
+public class WhitespaceTextVisitor extends AbstractTextVisitor {
 
 
     @Override
-    public String getTreeSymbols(MavenDependencyTreeNode node) {
+    public String getTreeSymbols(Node node) {
         return "   ";
     }
 
     @Override
-    public String getParentTreeSymbols(MavenDependencyTreeNode node) {
+    public String getParentTreeSymbols(Node node) {
         return "   ";
     }
 

@@ -45,7 +45,7 @@
     <td>
         <span class="mdt #if ($node.omitted) mdt-omitted #end">
         #if ($node.description)
-            <span class="mdt-description">($node.description)</span>
+            <span class="mdt-description">$node.description</span>
         #else
             &nbsp;
         #end

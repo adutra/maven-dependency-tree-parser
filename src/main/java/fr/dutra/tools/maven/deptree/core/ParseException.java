@@ -8,7 +8,7 @@ package fr.dutra.tools.maven.deptree.core;
  * @author Alexandre Dutra
  *
  */
-public class MavenDependencyTreeParseException extends Exception {
+public class ParseException extends Exception {
 
     /**
      * 
@@ -18,20 +18,20 @@ public class MavenDependencyTreeParseException extends Exception {
     /**
      * 
      */
-    public MavenDependencyTreeParseException() {
+    public ParseException() {
     }
 
     /**
      * @param message
      */
-    public MavenDependencyTreeParseException(String message) {
+    public ParseException(String message) {
         super(message);
     }
 
     /**
      * @param cause
      */
-    public MavenDependencyTreeParseException(Throwable cause) {
+    public ParseException(Throwable cause) {
         super(cause);
     }
 
@@ -39,7 +39,7 @@ public class MavenDependencyTreeParseException extends Exception {
      * @param message
      * @param cause
      */
-    public MavenDependencyTreeParseException(String message, Throwable cause) {
+    public ParseException(String message, Throwable cause) {
         super(message, cause);
     }
 

@@ -9,11 +9,11 @@ package fr.dutra.tools.maven.deptree.core;
  * @author Alexandre Dutra
  *
  */
-public class MavenDependencyTreeStandardTextVisitor extends MavenDependencyTreeAbstractTextVisitor {
+public class StandardTextVisitor extends AbstractTextVisitor {
 
 
     @Override
-    public String getTreeSymbols(MavenDependencyTreeNode node) {
+    public String getTreeSymbols(Node node) {
         if(node == node.getParent().getLastChildNode()) {
             return "\\- ";
         } else {
@@ -22,7 +22,7 @@ public class MavenDependencyTreeStandardTextVisitor extends MavenDependencyTreeA
     }
 
     @Override
-    public String getParentTreeSymbols(MavenDependencyTreeNode node) {
+    public String getParentTreeSymbols(Node node) {
         if(node == node.getParent().getLastChildNode()) {
             return "   ";
         } else {

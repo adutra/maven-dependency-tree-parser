@@ -20,11 +20,11 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.exception.VelocityException;
 
-import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeNode;
-import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeVisitException;
-import fr.dutra.tools.maven.deptree.core.MavenDependencyTreeVisitor;
+import fr.dutra.tools.maven.deptree.core.Node;
+import fr.dutra.tools.maven.deptree.core.VisitException;
+import fr.dutra.tools.maven.deptree.core.Visitor;
 
-public abstract class MavenDependencyTreeVelocityRenderer implements MavenDependencyTreeVisitor {
+public abstract class VelocityRenderer implements Visitor {
 
     private static final String STATIC_RESOURCES_BASE = "/static";
 
@@ -91,18 +91,18 @@ public abstract class MavenDependencyTreeVelocityRenderer implements MavenDepend
         this.encoding = encoding;
     }
 
-    public void visit(MavenDependencyTreeNode tree) throws MavenDependencyTreeVisitException {
+    public void visit(Node tree) throws VisitException {
         try {
             generateMainFile(tree);
             copyResources();
         } catch (UnsupportedEncodingException e) {
-            throw new MavenDependencyTreeVisitException();
+            throw new VisitException();
         } catch (IOException e) {
-            throw new MavenDependencyTreeVisitException();
+            throw new VisitException();
         }
     }
 
-    protected void generateMainFile(MavenDependencyTreeNode tree) throws IOException, UnsupportedEncodingException {
+    protected void generateMainFile(Node tree) throws IOException, UnsupportedEncodingException {
         VelocityContext vc = createVelocityContext(tree);
         Template t = createVelocityTemplate();
         File mainFile = new File(getOutputDir(), getFileName());
@@ -135,7 +135,7 @@ public abstract class MavenDependencyTreeVelocityRenderer implements MavenDepend
 
     protected abstract String getTemplatePath();
 
-    protected VelocityContext createVelocityContext(MavenDependencyTreeNode tree) {
+    protected VelocityContext createVelocityContext(Node tree) {
         VelocityContext vc = new VelocityContext();
         vc.put("tree", tree);
         return vc;

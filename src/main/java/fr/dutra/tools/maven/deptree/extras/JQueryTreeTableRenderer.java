@@ -8,7 +8,7 @@ import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 
 
-public class JQueryTreeTableRenderer extends MavenDependencyTreeVelocityRenderer {
+public class JQueryTreeTableRenderer extends VelocityRenderer {
 
     @Override
     protected String getTemplatePath() {

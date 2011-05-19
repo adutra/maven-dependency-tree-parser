@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-public abstract class MavenDependencyTreeLineBasedParser extends MavenDependencyTreeAbstractParser {
+public abstract class AbstractLineBasedParser extends AbstractParser {
 
     protected int lineIndex = 0;
 

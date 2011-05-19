@@ -13,53 +13,53 @@ import org.apache.commons.io.output.StringBuilderWriter;
  * @author Alexandre Dutra
  *
  */
-public abstract class MavenDependencyTreeAbstractTextVisitor implements MavenDependencyTreeVisitor {
+public abstract class AbstractTextVisitor implements Visitor {
 
 
     private final StringBuilderWriter sbw;
 
     private final BufferedWriter bw;
 
-    public MavenDependencyTreeAbstractTextVisitor() {
+    public AbstractTextVisitor() {
         sbw = new StringBuilderWriter();
         bw = new BufferedWriter(sbw);
     }
 
-    public void visit(MavenDependencyTreeNode node){
+    public void visit(Node node){
         try {
             writeNode(node);
-            for (MavenDependencyTreeNode child : node.getChildNodes()) {
+            for (Node child : node.getChildNodes()) {
                 visit(child);
             }
         } catch (IOException e) {
         }
     }
 
-    private void writeNode(MavenDependencyTreeNode node) throws IOException {
+    private void writeNode(Node node) throws IOException {
         //the tree symbols
         writeTreeSymbols(node);
         //the node itself
-        bw.write(node.toArtifactCanonicalForm());
+        bw.write(node.getArtifactCanonicalForm());
         bw.newLine();
     }
 
-    private void writeTreeSymbols(MavenDependencyTreeNode node) throws IOException {
+    private void writeTreeSymbols(Node node) throws IOException {
         if(node.getParent() != null) {
             writeParentTreeSymbols(node.getParent());
             bw.write(getTreeSymbols(node));
         }
     }
 
-    private void writeParentTreeSymbols(MavenDependencyTreeNode node) throws IOException {
+    private void writeParentTreeSymbols(Node node) throws IOException {
         if(node.getParent() != null) {
             writeParentTreeSymbols(node.getParent());
             bw.write(getParentTreeSymbols(node));
         }
     }
 
-    public abstract String getTreeSymbols(MavenDependencyTreeNode node);
+    public abstract String getTreeSymbols(Node node);
 
-    public abstract String getParentTreeSymbols(MavenDependencyTreeNode node);
+    public abstract String getParentTreeSymbols(Node node);
 
     @Override
     public String toString() {

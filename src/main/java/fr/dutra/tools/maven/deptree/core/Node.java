@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.LinkedList;
 
 
-public class MavenDependencyTreeNode implements Serializable {
+public class Node implements Serializable {
 
     /**
      * 
@@ -27,11 +27,11 @@ public class MavenDependencyTreeNode implements Serializable {
 
     private final boolean omitted;
 
-    private MavenDependencyTreeNode parent;
+    private Node parent;
 
-    private final LinkedList<MavenDependencyTreeNode> childNodes = new LinkedList<MavenDependencyTreeNode>();
+    private final LinkedList<Node> childNodes = new LinkedList<Node>();
 
-    public MavenDependencyTreeNode(
+    public Node(
         final String groupId,
         final String artifactId,
         final String packaging,
@@ -83,32 +83,32 @@ public class MavenDependencyTreeNode implements Serializable {
         return omitted;
     }
 
-    public MavenDependencyTreeNode getParent() {
+    public Node getParent() {
         return parent;
     }
 
-    public LinkedList<MavenDependencyTreeNode> getChildNodes() {
+    public LinkedList<Node> getChildNodes() {
         return this.childNodes;
     }
 
-    public boolean addChildNode(final MavenDependencyTreeNode o) {
+    public boolean addChildNode(final Node o) {
         o.parent = this;
         return this.childNodes.add(o);
     }
 
-    public boolean remove(final MavenDependencyTreeNode o) {
+    public boolean remove(final Node o) {
         return this.childNodes.remove(o);
     }
 
-    public MavenDependencyTreeNode getChildNode(int index) {
+    public Node getChildNode(int index) {
         return childNodes.get(index);
     }
 
-    public MavenDependencyTreeNode getFirstChildNode() {
+    public Node getFirstChildNode() {
         return childNodes.getFirst();
     }
 
-    public MavenDependencyTreeNode getLastChildNode() {
+    public Node getLastChildNode() {
         return childNodes.getLast();
     }
 
@@ -139,7 +139,7 @@ public class MavenDependencyTreeNode implements Serializable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        MavenDependencyTreeNode other = (MavenDependencyTreeNode) obj;
+        Node other = (Node) obj;
         if (artifactId == null) {
             if (other.artifactId != null) {
                 return false;
@@ -203,8 +203,8 @@ public class MavenDependencyTreeNode implements Serializable {
     }
 
     @Override
-    public MavenDependencyTreeNode clone() {
-        final MavenDependencyTreeNode clone = new MavenDependencyTreeNode(
+    public Node clone() {
+        final Node clone = new Node(
             this.groupId,
             this.artifactId,
             this.packaging,
@@ -214,7 +214,7 @@ public class MavenDependencyTreeNode implements Serializable {
             this.description,
             this.omitted
         );
-        for (final MavenDependencyTreeNode childNode : this.childNodes) {
+        for (final Node childNode : this.childNodes) {
             clone.addChildNode(childNode.clone());
         }
         return clone;
@@ -222,12 +222,12 @@ public class MavenDependencyTreeNode implements Serializable {
 
     @Override
     public String toString() {
-        MavenDependencyTreeStandardTextVisitor visitor = new MavenDependencyTreeStandardTextVisitor();
+        StandardTextVisitor visitor = new StandardTextVisitor();
         visitor.visit(this);
         return visitor.toString();
     }
 
-    public String toArtifactCanonicalForm() {
+    public String getArtifactCanonicalForm() {
         final StringBuilder builder = new StringBuilder();
         if(omitted) {
             builder.append("(");

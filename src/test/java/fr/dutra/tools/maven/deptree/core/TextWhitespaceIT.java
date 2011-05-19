@@ -12,13 +12,13 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class MavenDependencyTreeTextWhitespaceIT {
+public class TextWhitespaceIT {
 
     private String filename;
 
-    private MavenDependencyTreeInputType type;
+    private InputType type;
 
-    public MavenDependencyTreeTextWhitespaceIT(String filename, MavenDependencyTreeInputType type) {
+    public TextWhitespaceIT(String filename, InputType type) {
         super();
         this.filename = filename;
         this.type = type;
@@ -27,12 +27,12 @@ public class MavenDependencyTreeTextWhitespaceIT {
     @Parameters
     public static Collection<Object[]> data() {
         Object[][] data = new Object[][] {
-            { "/text-standard.txt", MavenDependencyTreeInputType.TEXT },
-            { "/text-whitespace.txt", MavenDependencyTreeInputType.TEXT },
-            { "/text-extended.txt", MavenDependencyTreeInputType.TEXT },
-            { "/dot.txt", MavenDependencyTreeInputType.DOT },
-            { "/graphml.xml", MavenDependencyTreeInputType.GRAPHML },
-            { "/tgf.txt", MavenDependencyTreeInputType.TGF }
+            { "/text-standard.txt", InputType.TEXT },
+            { "/text-whitespace.txt", InputType.TEXT },
+            { "/text-extended.txt", InputType.TEXT },
+            { "/dot.txt", InputType.DOT },
+            { "/graphml.xml", InputType.GRAPHML },
+            { "/tgf.txt", InputType.TGF }
         };
         return Arrays.asList(data);
     }
@@ -41,8 +41,8 @@ public class MavenDependencyTreeTextWhitespaceIT {
     public void test() throws Exception {
         InputStream is = this.getClass().getResourceAsStream(filename);
         Reader r = new InputStreamReader(is, "UTF-8");
-        MavenDependencyTreeParser parser = type.newParser();
-        MavenDependencyTreeNode tree = parser.parse(r);
+        Parser parser = type.newParser();
+        Node tree = parser.parse(r);
         System.out.println(tree);
     }
 

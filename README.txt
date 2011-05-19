@@ -1,16 +1,34 @@
 This library contains:
 
-- A set of parsers that parse the output of the maven command "mvn dependency:tree"; 
+- A set of parsers that parse the output of the Maven command "mvn dependency:tree"; 
   different parsers can be used to parse the following output formats: text, dot, graphml and tgf. 
   See http://maven.apache.org/plugins/maven-dependency-plugin/tree-mojo.html for further details.
   The following idiom is the recommended way to parse any input:
   
-  MavenDependencyTreeFormat format = ...;
-  MavenDependencyTreeParser parser = format.newParser();
-  Reader r = ...
-  MavenDependencyNode tree = parser.parse(r);
+  InputType type = ...;
+  Reader r = ...;
+  Parser parser = type.newParser();
+  Node tree = parser.parse(r);
   
 
-- A set of utilities to create HTML representations of the parsed tree. These utilities rely upon JQuery (see http://jquery.com) and some JQuery plugins: 
-  - jstree: see http://www.jstree.com/
-  - treeTable: see http://plugins.jquery.com/project/treeTable
+- A set of visitors that can be used to scan the parsed tree. In particular, visitors can be 
+  used to create human-readable representations of the parsed tree. E.g. the following code
+  transforms the parsed tree back again to the Maven standard text format:
+
+  Node tree = ...; 
+  StandardTextVisitor visitor = new StandardTextVisitor();
+  visitor.visit(tree);
+  System.out.println(visitor);
+        
+- A set of Velocity renderers that create HTML representations of the parsed tree. These renderers rely upon JQuery (see http://jquery.com) and some JQuery plugins: 
+  - JSTree: see http://www.jstree.com/
+  - TreeTable: see http://plugins.jquery.com/project/treeTable
+  These utilities are inteded as examples of HTML code; feel free to adapt them to your needs.
+  To generate the HTML code and all the secondary resources (images, CSS files, etc.), run the class
+  fr.dutra.tools.maven.deptree.extras.VelocityRendererMain with the following arguments:
+  - Full path of dependency tree file to parse;
+  - Dependency tree file format; one of: TEXT, DOT, GRAPHML or TGF;
+  - Full path to the output directory where HTML files and static resources will be generated (this directory will be erased prior to file generation);
+  - Renderer format; one of: 
+    - JQUERY_JSTREE (uses JQuery plugin JSTree)
+    - JQUERY_TREE_TABLE (uses JQuery plugin TreeTable)
