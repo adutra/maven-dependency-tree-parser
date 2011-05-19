@@ -1,3 +1,18 @@
+/**
+ * Copyright 2011 Alexandre Dutra
+ *
+ *    Licensed under the Apache License, Version 2.0 (the "License");
+ *    you may not use this file except in compliance with the License.
+ *    You may obtain a copy of the License at
+ *
+ *        http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *    Unless required by applicable law or agreed to in writing, software
+ *    distributed under the License is distributed on an "AS IS" BASIS,
+ *    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *    See the License for the specific language governing permissions and
+ *    limitations under the License.
+ */
 package fr.dutra.tools.maven.deptree.core;
 
 import java.io.BufferedReader;
@@ -8,6 +23,11 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Parent class of line-based parsers, i.e., parsers that scan the input line by line.
+ * @author Alexandre Dutra
+ *
+ */
 public abstract class AbstractLineBasedParser extends AbstractParser {
 
     protected int lineIndex = 0;
@@ -30,7 +50,7 @@ public abstract class AbstractLineBasedParser extends AbstractParser {
     }
 
     /**
-     * When doing an install at the same time, one can get this kink of output:
+     * When doing an install at the same time on a multi-module project, one can get this kind of output:
      * <pre>
      * +- active project artifact:
      *     artifact = active project artifact:

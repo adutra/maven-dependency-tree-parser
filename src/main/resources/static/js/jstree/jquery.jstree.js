@@ -1,17 +1,3 @@
-/*
- * jsTree 1.0-rc1
- * http://jstree.com/
- *
- * Copyright (c) 2010 Ivan Bozhanov (vakata.com)
- *
- * Dual licensed under the MIT and GPL licenses (same as jQuery):
- *   http://www.opensource.org/licenses/mit-license.php
- *   http://www.gnu.org/licenses/gpl.html
- *
- * $Date: 2010-07-01 10:51:11 +0300 (четв, 01 юли 2010) $
- * $Revision: 191 $
- */
-
 /*jslint browser: true, onevar: true, undef: true, bitwise: true, strict: true */
 /*global window : false, clearInterval: false, clearTimeout: false, document: false, setInterval: false, setTimeout: false, jQuery: false, navigator: false, XSLTProcessor: false, DOMParser: false, XMLSerializer: false*/
 

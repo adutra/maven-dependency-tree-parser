@@ -30,7 +30,7 @@
     <build>
 
         <plugins>
-        
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -40,11 +40,25 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.mycila.maven-license-plugin</groupId>
+                <artifactId>maven-license-plugin</artifactId>
+                <configuration>
+                    <header>LICENSE.txt</header>
+                    <strictCheck>true</strictCheck>
+                    <excludes>
+                        <exclude>**/js/**</exclude>
+                        <exclude>**/jquery*</exclude>
+                        <exclude>src/test/resources/**</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
             
         </plugins>
-        
+
     </build>
-    
+
     <dependencies>
 
         <dependency>
@@ -80,7 +94,7 @@
             <version>${powermock.version}</version>
             <scope>test</scope>
         </dependency>
-                
+
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
