@@ -1,4 +1,4 @@
-﻿com.acme.org:foo-integration:jar:1.0.41-SNAPSHOT
+com.acme.org:foo-integration:jar:1.0.41-SNAPSHOT
 ÃÄ com.acme.org:commons-integration:jar:2.39.0:compile
 ³  ÃÄ (com.acme.org:commons-core:jar:2.39.0:compile - omitted for duplicate)
 ³  ÃÄ commons-beanutils:commons-beanutils:jar:1.7.0:compile
