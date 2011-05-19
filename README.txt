@@ -26,6 +26,11 @@ This library contains:
   Parser parser = type.newParser();
   Node tree = parser.parse(r);
   
+  Note that this library is NOT a drop-in replacement for the Maven Mercury 
+  DependencyTreeBuilder API (see http://maven.apache.org/mercury/). 
+  In other words, it does NOT make any dependency resolution whatsoever per itself;
+  it simply takes an already-built dependency tree and parses it to an object representation
+  that is lightweight and easily reusable.
 
 - A set of visitors that can be used to scan the parsed tree. In particular, visitors can be 
   used to create human-readable representations of the parsed tree. E.g. the following code
