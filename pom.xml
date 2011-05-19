@@ -45,9 +45,10 @@
                 <groupId>com.mycila.maven-license-plugin</groupId>
                 <artifactId>maven-license-plugin</artifactId>
                 <configuration>
-                    <header>LICENSE.txt</header>
+                    <header>LICENSE.TXT</header>
                     <strictCheck>true</strictCheck>
                     <excludes>
+                        <exclude>LICENSE.TXT</exclude>
                         <exclude>**/js/**</exclude>
                         <exclude>**/jquery*</exclude>
                         <exclude>src/test/resources/**</exclude>
