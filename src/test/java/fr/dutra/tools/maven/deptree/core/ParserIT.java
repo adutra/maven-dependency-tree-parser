@@ -35,9 +35,9 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 
 @RunWith(Parameterized.class)
-public class TextWhitespaceIT {
+public class ParserIT {
 
-    private static class CheckLine {
+    private static class ControlLine {
         private int depth;
         private String groupId;
         private String artifactId;
@@ -47,8 +47,8 @@ public class TextWhitespaceIT {
         private String scope;
         private boolean omitted;
         private String description;
-        public static CheckLine parse(String line) {
-            CheckLine cl = new CheckLine();
+        public static ControlLine parse(String line) {
+            ControlLine cl = new ControlLine();
             String[] tokens = StrTokenizer.getCSVInstance(line).setDelimiterChar(',').setEmptyTokenAsNull(true).getTokenArray();
             cl.depth = Integer.parseInt(tokens[0]);
             cl.groupId = tokens[1];
@@ -63,15 +63,15 @@ public class TextWhitespaceIT {
         }
     }
 
+    private static List<ControlLine> cls;
+
     private String filename;
 
     private InputType type;
 
     private int index;
 
-    private static List<CheckLine> cls;
-
-    public TextWhitespaceIT(String filename, InputType type) {
+    public ParserIT(String filename, InputType type) {
         super();
         this.filename = filename;
         this.type = type;
@@ -80,24 +80,24 @@ public class TextWhitespaceIT {
     @Parameters
     public static Collection<Object[]> data() {
         Object[][] data = new Object[][] {
-            { "/output-files/text-standard.txt", InputType.TEXT },
-            { "/output-files/text-whitespace.txt", InputType.TEXT },
-            { "/output-files/text-extended.txt", InputType.TEXT },
-            { "/output-files/dot.txt", InputType.DOT },
-            { "/output-files/graphml.xml", InputType.GRAPHML },
-            { "/output-files/tgf.txt", InputType.TGF }
+            { "/it/input/text-standard.txt", InputType.TEXT },
+            { "/it/input/text-whitespace.txt", InputType.TEXT },
+            { "/it/input/text-extended.txt", InputType.TEXT },
+            { "/it/input/dot.txt", InputType.DOT },
+            { "/it/input/graphml.xml", InputType.GRAPHML },
+            { "/it/input/tgf.txt", InputType.TGF }
         };
         return Arrays.asList(data);
     }
 
     @BeforeClass
-    public static void setUpCheckFile() throws IOException {
-        InputStream is = TextWhitespaceIT.class.getResourceAsStream("/output-files/check.txt");
+    public static void setUpControlFile() throws IOException {
+        InputStream is = ParserIT.class.getResourceAsStream("/it/control.csv");
         BufferedReader r = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-        cls = new ArrayList<CheckLine>();
+        cls = new ArrayList<ControlLine>();
         String line = null;
         while((line = r.readLine()) != null) {
-            CheckLine cl = CheckLine.parse(line);
+            ControlLine cl = ControlLine.parse(line);
             cls.add(cl);
         }
     }
@@ -113,7 +113,7 @@ public class TextWhitespaceIT {
     }
 
     private void checkNode(Node node, int depth) {
-        CheckLine cl = cls.get(index++);
+        ControlLine cl = cls.get(index++);
         Assert.assertEquals(cl.depth, depth);
         Assert.assertEquals(cl.groupId, node.getGroupId());
         Assert.assertEquals(cl.artifactId, node.getArtifactId());
