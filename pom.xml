@@ -44,13 +44,13 @@
 	<distributionManagement>
 		<downloadUrl>https://github.com/adutra/maven-dependency-tree-parser</downloadUrl>
 		<repository>
-			<id>dutra-cloudbees-release</id>
-			<name>dutra-cloudbees-release</name>
+			<id>cloudbees-private-release-repository</id>
+			<name>cloudbees-private-release-repository</name>
 			<url>dav:https://repository-dutra.forge.cloudbees.com/release/</url>
 		</repository>
 		<snapshotRepository>
-			<id>dutra-cloudbees-snapshot</id>
-			<name>dutra-cloudbees-snapshot</name>
+			<id>cloudbees-private-snapshot-repository</id>
+			<name>cloudbees-private-snapshot-repository</name>
 			<url>dav:https://repository-dutra.forge.cloudbees.com/snapshot/</url>
 		</snapshotRepository>
 	</distributionManagement>
