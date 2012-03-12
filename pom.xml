@@ -4,7 +4,7 @@
     <name>Maven Dependency Tree Parser</name>
     <groupId>fr.dutra.tools.maven.deptree</groupId>
     <artifactId>maven-dependency-tree-parser</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <description>
         This library contains a set of parsers that parse the output of the maven command "mvn dependency:tree", and
         a set of utilities to create human-readable representations of the parsed tree.
